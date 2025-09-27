@@ -31,14 +31,29 @@ function HomeHeader() {
               <button onClick={() => setOpen(false)} className="mb-4">
                 ✕
               </button>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#">Home</a>
+              <div>
+                <div className="bg-red-400 h-10 w-20"></div>Omotayo Damilare
+              </div>
+              <ul className="space-y-2 mt-10">
+                <li className="text-xl ">
+                  <a href="#">Profile</a>
                 </li>
-                <li>
-                  <a href="#">Practice</a>
+                <li className="text-xl ">
+                  <a href="#">Courses</a>
                 </li>
-                <li>
+                <li className="text-xl ">
+                  <a href="#">CBT history</a>
+                </li>
+                <li className="text-xl ">
+                  <a href="#">Performance</a>
+                </li>
+                <li className="text-xl ">
+                  <a href="#">Leaderboard</a>
+                </li>
+                <li className="text-xl ">
+                  <a href="#">Settings</a>
+                </li>
+                <li className="text-xl ">
                   <a href="#">About</a>
                 </li>
               </ul>
