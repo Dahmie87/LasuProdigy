@@ -74,7 +74,13 @@ function NavFooter() {
             children={({ isActive }) => (
               <>
                 {isActive ? eachLink.icon2 : eachLink.icon}
-                <p className="text-xs font-medium">{eachLink.pageName}</p>
+                {isActive ? (
+                  <p className="text-xs font-medium text-sky-500">
+                    {eachLink.pageName}
+                  </p>
+                ) : (
+                  <p className="text-xs font-medium">{eachLink.pageName}</p>
+                )}{" "}
               </>
             )}
           ></NavLink>
