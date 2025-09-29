@@ -9,6 +9,8 @@ import HomePage from "./pages/home/home";
 import PracticePage from "./pages/practice/content";
 import "./App.css";
 import PreCBTpage from "./pages/practice/preCBT";
+import CBTpage from "./pages/practice/CBT";
+import PreQuickTestPage from "./pages/practice/preQuickTest";
 
 const NAVIGATION_ARRAY = [
   {
@@ -76,13 +78,29 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 4,
+    pageName: "CBT",
+    url: "/CBT-test",
+    page: <CBTpage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 5,
+    pageName: "Quick Test",
+    url: "/Pre-Quick-Test",
+    page: <PreQuickTestPage />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
   return (
     <footer className="sticky bottom-0 bg-white border-t border-gray-200 pb-safe">
       <div className="flex justify-around items-center h-16">
-        {NAVIGATION_ARRAY.filter((eachlink) => eachlink.id !== 3).map(
+        {NAVIGATION_ARRAY.filter((eachlink) => eachlink.id < 3).map(
           (eachLink) => (
             <NavLink
               className="flex flex-col items-center justify-center gap-1"
@@ -110,7 +128,8 @@ function NavFooter() {
 
 function AppLayout() {
   const LOCATION = useLocation();
-  const PRECBT_URL_PATH = LOCATION.pathname == "/preCbt";
+  const PRECBT_URL_PATH =
+    LOCATION.pathname == "/preCbt" || LOCATION.pathname == "/preCbt";
 
   return (
     <div

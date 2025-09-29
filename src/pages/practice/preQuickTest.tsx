@@ -23,7 +23,7 @@ function PreCbtHeader() {
           </button>
         </Link>
         <h1 className="text-lg font-bold text-foreground-light dark:text-foreground-dark">
-          CBT Test
+          Quick Test
         </h1>
         <div className="w-6"></div>
       </div>
@@ -35,11 +35,10 @@ function PreCBTSubHeading() {
   return (
     <div>
       <h2 className="text-2xl font-bold text-foreground-light dark:text-foreground-dark">
-        LASU Exam Simulator
+        VLAP test mode
       </h2>
       <p className="mt-2 text-muted-light dark:text-muted-dark">
-        This CBT mode simulates LASU exam LEMA and helps to prepare both
-        effocoently and adequately.
+        This Quick Tes mode simulates LASU tests VLAP
       </p>
     </div>
   );
@@ -91,7 +90,7 @@ function PreCbtCard() {
   );
 }
 
-export default function PreCBTpage() {
+export default function PreQuickTestPage() {
   return (
     <div className="bg-background-light dark:bg-background-dark font-display">
       <div className="flex flex-col min-h-screen">
