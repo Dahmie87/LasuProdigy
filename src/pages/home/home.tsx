@@ -1,5 +1,7 @@
 import HomeMain from "./content";
 import { useState } from "react";
+import gns from "../../assets/images/gns.jpg";
+
 function HomeHeader() {
   const [open, setOpen] = useState(false);
 
@@ -31,8 +33,23 @@ function HomeHeader() {
               <button onClick={() => setOpen(false)} className="mb-4">
                 ✕
               </button>
-              <div>
-                <div className="bg-red-400 h-10 w-20"></div>Omotayo Damilare
+              <div className="flex flex-col items-center p-4 bg-white shadow rounded-2xl">
+                {/* Profile Picture */}
+                <img
+                  src={gns}
+                  alt="Profile"
+                  className="w-24 h-24 rounded-full object-cover"
+                />
+
+                <div className="mt-3 text-center">
+                  <h2 className="text-lg font-semibold text-gray-800">
+                    Omotayo Damilare
+                  </h2>
+                  <p className="text-sm text-gray-500">@Dahmie</p>
+                </div>
+
+                {/* Verification Status */}
+                <p className="mt-2 text-xs text-red-500">Not verified</p>
               </div>
               <ul className="space-y-2 mt-10">
                 <li className="text-xl ">

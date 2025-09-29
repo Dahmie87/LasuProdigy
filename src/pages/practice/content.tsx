@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type ModeCardArgs = {
   icon: string;
   title: string;
@@ -78,7 +80,9 @@ export default function PracticePage() {
     <div className="flex flex-col  font-display bg-background-light dark:bg-background-dark">
       <Header />
       <main className="flex-grow overflow-y-auto px-4 space-y-6 pb-6">
-        <CBTModeCard />
+        <Link to={"/preCbt"}>
+          <CBTModeCard />
+        </Link>
         <ModeCard
           icon="timer"
           title="Quick Test"
