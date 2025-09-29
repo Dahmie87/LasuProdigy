@@ -83,12 +83,14 @@ export default function PracticePage() {
         <Link to={"/preCbt"}>
           <CBTModeCard />
         </Link>
-        <ModeCard
-          icon="timer"
-          title="Quick Test"
-          description="Quickly assess your knowledge"
-          buttonText="Start Quick Test"
-        />
+        <Link to="/Pre-Quick-Test">
+          <ModeCard
+            icon="timer"
+            title="Quick Test"
+            description="Quickly assess your knowledge"
+            buttonText="Start Quick Test"
+          />
+        </Link>
         <ModeCard
           icon="tune"
           title="Custom Mode"
