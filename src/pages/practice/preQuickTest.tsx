@@ -105,7 +105,7 @@ export default function PreQuickTestPage() {
             </div>
           </div>
         </div>
-        <Link to={"/CBT-test"}>
+        <Link to={"/CBT-test/quicktest"}>
           <div className=" bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
             <div className="container mx-auto p-4">
               <button className="w-full bg-sky-500 text-white font-bold py-4 px-5 rounded-xl text-lg hover:bg-sky-500/90 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark">

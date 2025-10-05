@@ -81,7 +81,7 @@ const NAVIGATION_ARRAY = [
   {
     id: 4,
     pageName: "CBT",
-    url: "/CBT-test",
+    url: "/CBT-test/:testtype",
     page: <CBTpage />,
     icon: "",
     icon2: "",
