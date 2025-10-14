@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function CBTHeader() {
+function CBTHeader({ timer }: { timer: string }) {
   const { testtype } = useParams();
-
   return (
     <header className="bg-background-light dark:bg-background-dark shadow-sm sticky top-0 z-10">
       <div className="flex items-center justify-between p-4">
@@ -39,14 +39,76 @@ function CBTHeader() {
               stroke-linejoin="round"
             ></path>
           </svg>
-          <span className="text-sm font-semibold text-black-500">01:59:59</span>
+          <span className="text-sm font-semibold text-black-500">{timer}</span>
         </div>
       </div>
     </header>
   );
 }
+
+function OptionsSection(props: {
+  value: any;
+  onChange: () => void;
+  checked: boolean;
+}) {
+  return (
+    <div className="space-y-3 bg-blue-100/20">
+      <label className="flex items-center gap-3 p-4 rounded-lg">
+        <input
+          className="h-5 w-5 border-gray-300 text-primary focus:ring-primary focus:ring-offset-background-light"
+          name="answer"
+          type="radio"
+          onChange={props.onChange}
+          checked={props.checked}
+        />
+        <span className="text-sm font-medium ">{props.value}</span>
+      </label>
+    </div>
+  );
+}
+
+// function ConfirmationModal() {
+//   return (
+
+//   );
+// }
+
 export default function CBTpage() {
-  const [Questions, setQuestions] = useState([]);
+  const [timerSeconds, setTimerSeconds] = useState(1500);
+
+  //  HH:MM:SS
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
+
+  // Countdown
+  useEffect(() => {
+    if (timerSeconds <= 0) return;
+    const interval = setInterval(() => {
+      setTimerSeconds((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timerSeconds]);
+
+  const [Modal, setModal] = useState(false);
+
+  const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
+
+  const handleOptionChange = (questionIndex: any, value: any) => {
+    const updated = [...selectedOptions];
+    updated[questionIndex] = value;
+    setSelectedOptions(updated);
+    console.log(updated);
+  };
+  type Option = { option_text: string; is_correct: boolean };
+  type Question = { question_text: string; options: Option[] };
+  const [Questions, setQuestions] = useState<Question[]>([]);
+
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const MY_QUESTIONS_API_URL = "http://localhost:8000/api/courses/2/";
 
@@ -54,90 +116,129 @@ export default function CBTpage() {
     fetch(MY_QUESTIONS_API_URL)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.questions);
-        setQuestions(data.questions);
+        const shuffled = [...data.questions].sort(() => Math.random() - 0.5);
+
+        // Limit how many you want (e.g. 10)
+        const limited = shuffled.slice(0, 10);
+
+        // Save the limited, random questions to state
+        setQuestions(limited);
       });
   }, []);
 
+  function submitAnswers() {
+    const CORRECT_ARRAY = [];
+    for (let i = 0; i < Questions.length; i++) {
+      const userAnswer = selectedOptions[i];
+      const correctAnswer = Questions[i].options.find(
+        (option) => option.is_correct
+      )?.option_text;
+      if (userAnswer === correctAnswer) {
+        CORRECT_ARRAY.push(userAnswer);
+      }
+    }
+    const filtered = CORRECT_ARRAY.filter((arr) => arr !== undefined);
+    console.log("user scored", filtered.length, "out of", Questions.length);
+    return filtered.length;
+  }
+
+  const cbtNavigate = useNavigate();
+
+  function handleConfirm() {
+    const total = submitAnswers();
+    const encoded = btoa(total.toString());
+    cbtNavigate(`/CBTresults?CBT=${encoded}`);
+  }
   return (
-    <div className="flex flex-col h-screen justify-between">
-      <CBTHeader />
+    <div className="flex flex-col h-screen">
+      <CBTHeader timer={formatTime(timerSeconds)} />
       <div className="p-4 ">
         <div className="mb-6">
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-            Question 1 of 50
+          <p className="text-sm font-medium text-gray-500 mb-2">
+            Question {currentQuestion + 1} of {Questions.length}
           </p>
-
-          {/* Which of the following is NOT a type of computer memory? */}
-          {Questions.map((question) => (
-            <p className="text-base font-semibold text-black">
-              {" "}
-              {question.question_text}
-            </p>
-          ))}
+          {Questions[currentQuestion]?.question_text}
         </div>
-        <div className="space-y-3 bg-blue-100/20">
-          <label className="flex items-center gap-3 p-4 rounded-lg  dark:border-gray-700 has-[:checked]:bg-primary/10 has-[:checked]:border-primary dark:has-[:checked]:bg-primary/20">
-            <input
-              className="h-5 w-5 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark bg-transparent"
-              name="answer"
-              type="radio"
+        {Questions[currentQuestion]?.options.map(
+          (option: { option_text: string }, i) => (
+            <OptionsSection
+              key={i}
+              value={option.option_text}
+              onChange={() =>
+                handleOptionChange(currentQuestion, option.option_text)
+              }
+              checked={selectedOptions[currentQuestion] === option.option_text}
             />
-            <span className="text-sm font-medium ">RAM</span>
-          </label>
-          <label className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 has-[:checked]:bg-primary/10 has-[:checked]:border-primary dark:has-[:checked]:bg-primary/20">
-            <input
-              className="h-5 w-5 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark bg-transparent"
-              name="answer"
-              type="radio"
-            />
-            <span className="text-sm font-medium ">ROM</span>
-          </label>
-          <label className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 has-[:checked]:bg-primary/10 has-[:checked]:border-primary dark:has-[:checked]:bg-primary/20">
-            <input
-              className="h-5 w-5 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark bg-transparent"
-              name="answer"
-              type="radio"
-            />
-            <span className="text-sm font-medium ">CPU</span>
-          </label>
-          <label className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 has-[:checked]:bg-primary/10 has-[:checked]:border-primary dark:has-[:checked]:bg-primary/20">
-            <input
-              className="h-5 w-5 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark bg-transparent"
-              name="answer"
-              type="radio"
-            />
-            <span className="text-sm font-medium ">Cache</span>
-          </label>
-        </div>
+          )
+        )}
       </div>
 
-      <footer className="bg-background-light dark:bg-background-dark p-4 border-t border-gray-200 dark:border-gray-800">
+      <footer className="bg-background-light dark:bg-background-dark p-4">
         <div className="flex justify-between items-center gap-4">
-          <button className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white">
+          <button
+            className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white"
+            onClick={() => setCurrentQuestion((prev) => prev - 1)}
+            disabled={currentQuestion <= 0 ? true : false}
+          >
             Previous
           </button>
-          <button className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white">
+          <button
+            className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white"
+            onClick={() => setCurrentQuestion((prev) => prev + 1)}
+            disabled={currentQuestion >= Questions.length - 1 ? true : false}
+          >
             Next
           </button>
-          {/* <button className="p-2 rounded-lg bg-primary text-white">
-              <svg
-                fill="currentColor"
-                height="24"
-                viewBox="0 0 256 256"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M200,40H56A16,16,0,0,0,40,56V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,80H136V56h64ZM120,56v64H56V56ZM56,136h64v64H56Zm144,64H136V136h64v64Z"></path>
-              </svg>
-            </button> */}
         </div>
         <div className="mt-4 text-center">
-          <button className="bg-black py-2.5 px-10 rounded-xl text-white">
+          <button
+            className="bg-black py-2.5 px-10 rounded-xl text-white"
+            onClick={() => setModal(true)}
+          >
             Submit
           </button>
         </div>
       </footer>
+
+      {Modal && (
+        <div
+          className="flex items-center justify-center min-h-screen bg-black/80 fixed inset-0 z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setModal(false);
+          }}
+        >
+          <div className="bg-white shadow-lg rounded-2xl p-6 w-80 text-center">
+            <div className="relative w-20 h-20 mx-auto mb-4">
+              <div className="w-full h-full rounded-full border-[5px] border-orange-400 "></div>
+              <span className="absolute inset-0 flex items-center justify-center text-5xl font-bold text-orange-500">
+                !
+              </span>
+            </div>
+
+            {/* Message */}
+            <h2 className="text-lg font-semibold text-gray-800 mb-6">
+              ARE YOU CONFIRMING SUBMISSION
+            </h2>
+
+            {/* Buttons */}
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleConfirm}
+                className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg shadow"
+              >
+                Confirm
+              </button>
+
+              <button
+                onClick={() => setModal(false)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
