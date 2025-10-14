@@ -11,7 +11,7 @@ import "./App.css";
 import PreCBTpage from "./pages/practice/preCBT";
 import CBTpage from "./pages/practice/CBT";
 import PreQuickTestPage from "./pages/practice/preQuickTest";
-
+import CBTResultsPage from "./pages/practice/cbtResults";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -91,6 +91,14 @@ const NAVIGATION_ARRAY = [
     pageName: "Quick Test",
     url: "/Pre-Quick-Test",
     page: <PreQuickTestPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 6,
+    pageName: "CBT Results",
+    url: "/CBTResults",
+    page: <CBTResultsPage />,
     icon: "",
     icon2: "",
   },
