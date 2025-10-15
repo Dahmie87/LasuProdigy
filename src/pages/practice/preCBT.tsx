@@ -1,11 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function PreCbtHeader() {
   return (
-    <header className="top-0 z-10 bg-background-light/80 dark:bg-background-dark/80">
+    <header className="top-0 z-10 bg-background-light/80 ">
       <div className="container mx-auto flex items-center justify-between h-16">
         <Link to={"/practice"}>
-          <button className="p-2 -ml-2 text-foreground-light dark:text-foreground-dark">
+          <button className="p-2 -ml-2 text-foreground-light ">
             <svg
               className="h-6 w-6"
               fill="none"
@@ -45,25 +46,12 @@ function PreCBTSubHeading() {
   );
 }
 
-function CBTcourse() {
-  return (
-    <div className="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm">
-      <label className="text-sm font-medium text-muted-light dark:text-muted-dark">
-        Course
-      </label>
-      <div className="flex items-center justify-between mt-1">
-        <select className=" font-semibold text-foreground-light dark:text-foreground-dark">
-          <option value="CHM 101 atoms">CHM 101 atoms</option>
-          <option value="Mat 101 algebra">Mat 101 algebra</option>
-          <option value="BOt 101 plant">BOt 101 plant</option>
-          <option value="csc 101 generations of computer">
-            csc 101 generations of compute
-          </option>
-        </select>
-      </div>
-    </div>
-  );
-}
+// function CBTcourse() {
+
+//   return (
+//     <div></div>
+//   );
+// }
 
 function PreCbtCard() {
   const CARD_ARRAY = [
@@ -71,6 +59,8 @@ function PreCbtCard() {
     { id: 2, label: "Timer", value: "20 minuttes" },
     { id: 3, label: "Difficulty", value: "Mixed" },
   ];
+
+  console.log();
 
   return (
     <div>
@@ -92,6 +82,11 @@ function PreCbtCard() {
 }
 
 export default function PreCBTpage() {
+  const [courseselected, setCourseSelected] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCourseSelected(event.target.value);
+  };
+  console.log(courseselected);
   return (
     <div className="bg-background-light dark:bg-background-dark font-display">
       <div className="flex flex-col min-h-screen">
@@ -101,12 +96,27 @@ export default function PreCBTpage() {
           <div className="space-y-8">
             <PreCBTSubHeading />
             <div className="space-y-4">
-              <CBTcourse />
+              <div className="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm">
+                <label className="text-sm font-medium text-muted-light dark:text-muted-dark">
+                  Course
+                </label>
+                <div className="flex items-center justify-between mt-1">
+                  <select
+                    className=" font-semibold text-foreground-light dark:text-foreground-dark w-full"
+                    onChange={handleChange}
+                  >
+                    <option value="CHM101">CHM 101 atoms</option>
+                    <option value="MAT101">Mat 101 algebra</option>
+                    <option value="PHY101">Physics 101 Mechanics</option>
+                  </select>
+                </div>
+              </div>
               <PreCbtCard />
             </div>
           </div>
         </div>
-        <Link to={"/CBT-test/CBTtest"}>
+
+        <Link to={"/CBT-test/CBTtest/course/" + courseselected}>
           <div className=" bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
             <div className="container mx-auto p-4">
               <button className="w-full bg-sky-500 text-white font-bold py-4 px-5 rounded-xl text-lg hover:bg-sky-500/90 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark">

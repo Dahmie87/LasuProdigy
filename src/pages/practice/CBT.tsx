@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function CBTHeader({ timer }: { timer: string }) {
-  const { testtype } = useParams();
+  const test = useParams();
   return (
     <header className="bg-background-light dark:bg-background-dark shadow-sm sticky top-0 z-10">
       <div className="flex items-center justify-between p-4">
@@ -18,7 +18,7 @@ function CBTHeader({ timer }: { timer: string }) {
             <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
           </svg>
         </button>
-        <h1 className="text-lg font-bold text-black">{testtype}</h1>
+        <h1 className="text-lg font-bold text-black">{test.courseid}</h1>
         <div className="flex items-center gap-1.5 bg-gray-100 rounded-lg px-2.5 py-1.5">
           <svg
             className="h-5 w-5 text-gray-500 dark:text-gray-400"
@@ -75,7 +75,15 @@ function OptionsSection(props: {
 
 export default function CBTpage() {
   const [timerSeconds, setTimerSeconds] = useState(1500);
+  const params = useParams();
 
+  const urlMap: Record<string, string> = {
+    MAT101: "1",
+    CHM101: "2",
+    PHY101: "6",
+  };
+
+  const urlId = urlMap[params.courseid!];
   //  HH:MM:SS
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60)
@@ -110,7 +118,7 @@ export default function CBTpage() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const MY_QUESTIONS_API_URL = "http://localhost:8000/api/courses/2/";
+  const MY_QUESTIONS_API_URL = `http://localhost:8000/api/courses/${urlId}/`;
 
   useEffect(() => {
     fetch(MY_QUESTIONS_API_URL)
@@ -124,7 +132,7 @@ export default function CBTpage() {
         // Save the limited, random questions to state
         setQuestions(limited);
       });
-  }, []);
+  }, [MY_QUESTIONS_API_URL]);
 
   function submitAnswers() {
     const CORRECT_ARRAY = [];

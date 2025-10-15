@@ -10,7 +10,7 @@ type ModeCardArgs = {
 const Header = () => (
   <header className="flex-shrink-0">
     <div className="p-4">
-      <h1 className="text-xl font-bold text-center text-[#111318] dark:text-white">
+      <h1 className="text-xl font-bold text-center text-[#111318] ">
         Practice
       </h1>
     </div>
@@ -37,8 +37,8 @@ const CBTModeCard = () => (
 );
 
 const ModeCard = ({ icon, title, description, buttonText }: ModeCardArgs) => (
-  <div className="bg-white dark:bg-background-dark/50 rounded-xl p-6 shadow-md flex items-center space-x-4">
-    <div className="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+  <div className="bg-white  rounded-xl p-6 shadow-md flex items-center space-x-4">
+    <div className="bg-primary/10 p-3 rounded-full">
       {icon === "timer" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -62,9 +62,7 @@ const ModeCard = ({ icon, title, description, buttonText }: ModeCardArgs) => (
       )}
     </div>
     <div className="flex-grow">
-      <h3 className="text-lg font-bold text-[#111318] dark:text-white">
-        {title}
-      </h3>
+      <h3 className="text-lg font-bold text-[#111318]">{title}</h3>
       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
         {description}
       </p>

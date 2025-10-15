@@ -3,33 +3,19 @@ export default function CBTResultsPage() {
   const [searchParams] = useSearchParams();
   const cbtScore = searchParams.get("CBT");
   const decodedScore = cbtScore ? parseInt(atob(cbtScore)) : 0;
+  //   const total = 10;
+  //   const angle = (decodedScore / total) * 360;
+  //   console.log(angle);
   return (
     <div className="bg-background-light dark:bg-background-dark font-display">
       <div className="relative flex min-h-screen w-full flex-col justify-between">
         <div className="flex-grow">
-          <header className="flex items-center p-4">
-            <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-primary/20 text-gray-800 ">
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                height="24"
-                stroke="#000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M19 12H5"></path>
-                <path d="m12 19-7-7 7-7"></path>
-              </svg>
-            </button>
+          <div className="flex items-center p-4">
             <h1 className="flex-1 text-center text-lg font-bold text-black ">
               Score Dashboard
             </h1>
-          </header>
-          <main className="p-4">
+          </div>
+          <div className="p-4">
             <section className="mb-6 rounded-xl bg-white dark:bg-primary/10 p-6 text-center">
               <p className="text-sm text-gray-700">Overall Score</p>
               <div className="my-4 flex items-center justify-center">
@@ -54,7 +40,7 @@ export default function CBTResultsPage() {
                       cy="50"
                       r="44"
                       stroke="#2d6ee6ff"
-                      stroke-dasharray="276.46"
+                      stroke-dasharray="160"
                       stroke-dashoffset="41.469"
                       stroke-linecap="round"
                       transform="rotate(-90 50 50)"
@@ -71,7 +57,7 @@ export default function CBTResultsPage() {
                 </div>
               </div>
               <p className="text-gray-600 dark:text-gray-600">
-                Great job, ! You've shown excellent understanding.
+                Great job,Dahmie ! You've shown excellent understanding.
               </p>
             </section>
             <section className="mb-6">
@@ -121,7 +107,7 @@ export default function CBTResultsPage() {
                 </span>
               </button>
             </section>
-          </main>
+          </div>
         </div>
       </div>
     </div>
