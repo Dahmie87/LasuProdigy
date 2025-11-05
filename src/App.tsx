@@ -12,6 +12,7 @@ import PreCBTpage from "./pages/practice/preCBT";
 import CBTpage from "./pages/practice/CBT";
 import PreQuickTestPage from "./pages/practice/preQuickTest";
 import CBTResultsPage from "./pages/practice/cbtResults";
+import QuickTestPage from "./pages/practice/QuickTest";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -102,6 +103,14 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 7,
+    pageName: "CBT Results",
+    url: "/CBT-test/quicktest",
+    page: <QuickTestPage />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -136,9 +145,14 @@ function NavFooter() {
 
 function AppLayout() {
   const LOCATION = useLocation();
-  const PRECBT_URL_PATH =
-    LOCATION.pathname == "/preCbt" || LOCATION.pathname == "/preCbt";
-
+  const HIDE_PRECBT_PATHS = [
+    "/preCbt",
+    "/CBT-test/:testtype/course/:courseid",
+    "/Pre-Quick-Test",
+  ];
+  const shouldHIdeFooterBool =
+    HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||
+    LOCATION.pathname.startsWith("/CBT-test/");
   return (
     <div
       className="bg-gray-50 relative flex h-auto min-h-screen w-full flex-col justify-between group/design-root"
@@ -151,7 +165,7 @@ function AppLayout() {
           ))}
         </Routes>
       </div>
-      {!PRECBT_URL_PATH && <NavFooter></NavFooter>}
+      {!shouldHIdeFooterBool && <NavFooter></NavFooter>}
     </div>
   );
 }

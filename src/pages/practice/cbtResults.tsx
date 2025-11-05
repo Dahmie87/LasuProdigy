@@ -1,9 +1,15 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 export default function CBTResultsPage() {
   const [searchParams] = useSearchParams();
+  const { state } = useLocation();
+  console.log(state?.answers);
   const cbtScore = searchParams.get("CBT");
+  const RADIUS = 44;
+  const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+  const total = 30;
+
   const decodedScore = cbtScore ? parseInt(atob(cbtScore)) : 0;
-  //   const total = 10;
+  const RATIO = (decodedScore / total) * CIRCUMFERENCE;
   //   const angle = (decodedScore / total) * 360;
   //   console.log(angle);
   return (
@@ -31,18 +37,18 @@ export default function CBTResultsPage() {
                       className="text-gray-200 dark:text-primary/20"
                       cx="50"
                       cy="50"
-                      r="44"
+                      r={RADIUS}
                       stroke="currentColor"
                     ></circle>
                     <circle
                       className="text-primary"
                       cx="50"
                       cy="50"
-                      r="44"
+                      r={RADIUS}
                       stroke="#2d6ee6ff"
-                      stroke-dasharray="160"
-                      stroke-dashoffset="41.469"
-                      stroke-linecap="round"
+                      strokeDasharray={CIRCUMFERENCE}
+                      strokeDashoffset={CIRCUMFERENCE - RATIO}
+                      strokeLinecap="round"
                       transform="rotate(-90 50 50)"
                     ></circle>
                   </svg>
@@ -51,7 +57,7 @@ export default function CBTResultsPage() {
                       {decodedScore}
                     </span>
                     <span className="text-gray-500 dark:text-gray-700">
-                      / 10
+                      / {total}
                     </span>
                   </div>
                 </div>

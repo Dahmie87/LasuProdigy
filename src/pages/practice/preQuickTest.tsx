@@ -66,8 +66,8 @@ function CBTcourse() {
 
 function PreCbtCard() {
   const CARD_ARRAY = [
-    { id: 1, label: "Number of questions", value: "35 questions" },
-    { id: 2, label: "Timer", value: "20 minuttes" },
+    { id: 1, label: "Number of questions", value: "15 questions" },
+    { id: 2, label: "Timer", value: "10 minuttes" },
     { id: 3, label: "Difficulty", value: "Mixed" },
   ];
 
