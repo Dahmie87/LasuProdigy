@@ -82,7 +82,7 @@ function PreCbtCard() {
 }
 
 export default function PreCBTpage() {
-  const [courseselected, setCourseSelected] = useState("");
+  const [courseselected, setCourseSelected] = useState("none");
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCourseSelected(event.target.value);
   };
@@ -105,9 +105,11 @@ export default function PreCBTpage() {
                     className=" font-semibold text-foreground-light dark:text-foreground-dark w-full"
                     onChange={handleChange}
                   >
+                    <option value="none">-- none --</option>
                     <option value="CHM101">CHM 101 atoms</option>
-                    <option value="MAT101">Mat 101 algebra</option>
+                    <option value="MAT101">Math 101 algebra</option>
                     <option value="PHY101">Physics 101 Mechanics</option>
+                    <option value="CSC101">Computer Science 101</option>
                   </select>
                 </div>
               </div>
@@ -119,7 +121,10 @@ export default function PreCBTpage() {
         <Link to={"/CBT-test/CBTtest/course/" + courseselected}>
           <div className=" bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
             <div className="container mx-auto p-4">
-              <button className="w-full bg-sky-500 text-white font-bold py-4 px-5 rounded-xl text-lg hover:bg-sky-500/90 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark">
+              <button
+                className="w-full bg-sky-500 disabled:bg-gray-300 text-white font-bold py-4 px-5 rounded-xl text-lg hover:bg-sky-500/90 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-background-light"
+                disabled={courseselected == "none"}
+              >
                 Start Test
               </button>
             </div>

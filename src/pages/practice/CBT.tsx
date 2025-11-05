@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function CBTHeader({ timer }: { timer: string }) {
@@ -7,17 +7,19 @@ function CBTHeader({ timer }: { timer: string }) {
   return (
     <header className="bg-background-light dark:bg-background-dark shadow-sm sticky top-0 z-10">
       <div className="flex items-center justify-between p-4">
-        <button className="text-gray-800 dark:text-white">
-          <svg
-            fill="#000"
-            height="24"
-            viewBox="0 0 256 256"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
-          </svg>
-        </button>
+        <Link to={"/practice"}>
+          <button className="text-gray-800 dark:text-white">
+            <svg
+              fill="#000"
+              height="24"
+              viewBox="0 0 256 256"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </Link>
         <h1 className="text-lg font-bold text-black">{test.courseid}</h1>
         <div className="flex items-center gap-1.5 bg-gray-100 rounded-lg px-2.5 py-1.5">
           <svg
@@ -48,6 +50,7 @@ function CBTHeader({ timer }: { timer: string }) {
 
 function OptionsSection(props: {
   value: any;
+  label: any;
   onChange: () => void;
   checked: boolean;
 }) {
@@ -61,26 +64,27 @@ function OptionsSection(props: {
           onChange={props.onChange}
           checked={props.checked}
         />
-        <span className="text-sm font-medium ">{props.value}</span>
+        <span className="text-sm font-medium ">
+          {props.label}
+          {".    "}
+          {props.value}
+        </span>
       </label>
     </div>
   );
 }
 
-// function ConfirmationModal() {
-//   return (
-
-//   );
-// }
-
 export default function CBTpage() {
-  const [timerSeconds, setTimerSeconds] = useState(1500);
+  const [timerSeconds, setTimerSeconds] = useState(1200);
   const params = useParams();
+
+  const [timeModal, setTimeModal] = useState(false);
 
   const urlMap: Record<string, string> = {
     MAT101: "1",
     CHM101: "2",
     PHY101: "6",
+    CSC101: "7",
   };
 
   const urlId = urlMap[params.courseid!];
@@ -95,7 +99,9 @@ export default function CBTpage() {
 
   // Countdown
   useEffect(() => {
-    if (timerSeconds <= 0) return;
+    if (timerSeconds <= 0) {
+      setTimeModal(true);
+    }
     const interval = setInterval(() => {
       setTimerSeconds((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
@@ -126,10 +132,8 @@ export default function CBTpage() {
       .then((data) => {
         const shuffled = [...data.questions].sort(() => Math.random() - 0.5);
 
-        // Limit how many you want (e.g. 10)
-        const limited = shuffled.slice(0, 10);
+        const limited = shuffled.slice(0, 30);
 
-        // Save the limited, random questions to state
         setQuestions(limited);
       });
   }, [MY_QUESTIONS_API_URL]);
@@ -155,58 +159,114 @@ export default function CBTpage() {
   function handleConfirm() {
     const total = submitAnswers();
     const encoded = btoa(total.toString());
-    cbtNavigate(`/CBTresults?CBT=${encoded}`);
+
+    const answeredOptions = Questions.map((q, i) => ({
+      question: q.question_text,
+      selected: selectedOptions[i],
+      correct: q.options.find((opt) => opt.is_correct)?.option_text,
+    }));
+    cbtNavigate(`/CBTresults?CBT=${encoded}`, {
+      state: { answers: answeredOptions },
+    });
   }
   return (
     <div className="flex flex-col h-screen">
+      {/* ==== Header (unchanged) ==== */}
       <CBTHeader timer={formatTime(timerSeconds)} />
-      <div className="p-4 ">
-        <div className="mb-6">
-          <p className="text-sm font-medium text-gray-500 mb-2">
-            Question {currentQuestion + 1} of {Questions.length}
-          </p>
-          {Questions[currentQuestion]?.question_text}
-        </div>
-        {Questions[currentQuestion]?.options.map(
-          (option: { option_text: string }, i) => (
-            <OptionsSection
-              key={i}
-              value={option.option_text}
-              onChange={() =>
-                handleOptionChange(currentQuestion, option.option_text)
-              }
-              checked={selectedOptions[currentQuestion] === option.option_text}
-            />
-          )
-        )}
-      </div>
 
-      <footer className="bg-background-light dark:bg-background-dark p-4">
-        <div className="flex justify-between items-center gap-4">
-          <button
-            className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white"
-            onClick={() => setCurrentQuestion((prev) => prev - 1)}
-            disabled={currentQuestion <= 0 ? true : false}
-          >
-            Previous
-          </button>
-          <button
-            className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white"
-            onClick={() => setCurrentQuestion((prev) => prev + 1)}
-            disabled={currentQuestion >= Questions.length - 1 ? true : false}
-          >
-            Next
-          </button>
+      {/* ==== Main content area with sidebar + question area ==== */}
+      <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
+        {/* ==== Sidebar on the LEFT (desktop), BELOW on mobile) ==== */}
+        <aside className="w-full md:w-64 order-2 md:order-1 border-red-900 flex flex-col p-4 overflow-y-auto">
+          {/* Anything you want above the boxes */}
+          <div className="mb-4">
+            <p className="text-sm font-medium text-gray-700 mb-2">
+              Omotayo Damilare Hello
+            </p>
+            {/* Example: progress text, timer, etc. */}
+          </div>
+
+          {/* Question boxes (6 per row) */}
+          <div className="grid grid-cols-6 gap-2">
+            {Questions.map((_, index) => {
+              const attempted = selectedOptions[index];
+              return (
+                <button
+                  key={index}
+                  onClick={() => setCurrentQuestion(index)}
+                  className={`w-8 h-8 rounded-md font-semibold flex items-center justify-center text-sm transition-colors duration-200
+              ${
+                attempted
+                  ? "border-2 border-green-500"
+                  : index === currentQuestion
+                  ? "border-2 border-blue-500"
+                  : "border-2 border-gray-300"
+              }`}
+                >
+                  {index + 1}
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+
+        {/* ==== Main Question Section ==== */}
+        <div className="flex flex-col flex-1 overflow-y-auto order-1 md:order-2">
+          <div className="p-4 flex-1">
+            <div className="mb-6">
+              <p className="text-sm font-medium text-gray-500 mb-2">
+                Question {currentQuestion + 1} of {Questions.length}
+              </p>
+              {Questions[currentQuestion]?.question_text}
+            </div>
+
+            {Questions[currentQuestion]?.options.map(
+              (option: { option_text: string }, i) => (
+                <OptionsSection
+                  key={i}
+                  value={option.option_text}
+                  label={String.fromCharCode(65 + i)}
+                  onChange={() =>
+                    handleOptionChange(currentQuestion, option.option_text)
+                  }
+                  checked={
+                    selectedOptions[currentQuestion] === option.option_text
+                  }
+                />
+              )
+            )}
+          </div>
+
+          {/* ==== Footer ==== */}
+          <footer className="bg-background-light dark:bg-background-dark p-4">
+            <div className="flex justify-between items-center gap-4">
+              <button
+                className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white disabled:bg-gray-300"
+                onClick={() => setCurrentQuestion((prev) => prev - 1)}
+                disabled={currentQuestion <= 0}
+              >
+                Previous
+              </button>
+              <button
+                className="py-2 px-4 rounded-lg text-sm font-bold bg-blue-500 text-white disabled:bg-gray-300"
+                onClick={() => setCurrentQuestion((prev) => prev + 1)}
+                disabled={currentQuestion >= Questions.length - 1}
+              >
+                Next
+              </button>
+            </div>
+
+            <div className="mt-4 text-center">
+              <button
+                className="bg-black py-2.5 px-10 rounded-xl text-white"
+                onClick={() => setModal(true)}
+              >
+                Submit
+              </button>
+            </div>
+          </footer>
         </div>
-        <div className="mt-4 text-center">
-          <button
-            className="bg-black py-2.5 px-10 rounded-xl text-white"
-            onClick={() => setModal(true)}
-          >
-            Submit
-          </button>
-        </div>
-      </footer>
+      </div>
 
       {Modal && (
         <div
@@ -243,6 +303,41 @@ export default function CBTpage() {
               >
                 Cancel
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {timeModal && (
+        <div className="flex items-center justify-center min-h-screen bg-black/80 fixed inset-0 z-50">
+          <div className="bg-white shadow-lg rounded-2xl p-6 w-80 text-center">
+            <h2 className="text-lg font-semibold text-gray-800">
+              TIME IS UP, PLEASE SUBMIT!
+            </h2>
+            <div className=" inset-0 flex items-center justify-center p-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="60px"
+                viewBox="0 -960 960 960"
+                width="60px"
+                fill="#050505ff"
+              >
+                <path d="M360-840v-80h240v80H360Zm80 440h80v-240h-80v240Zm40 320q-74 0-139.5-28.5T226-186q-49-49-77.5-114.5T120-440q0-74 28.5-139.5T226-694q49-49 114.5-77.5T480-800q62 0 119 20t107 58l56-56 56 56-56 56q38 50 58 107t20 119q0 74-28.5 139.5T734-186q-49 49-114.5 77.5T480-80Zm0-80q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-280Z" />
+              </svg>
+            </div>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleConfirm}
+                className="bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded-lg shadow"
+              >
+                Submit
+              </button>
+
+              {/* <button
+                onClick={() => setModal(false)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg"
+              >
+                Cancel
+              </button> */}
             </div>
           </div>
         </div>
