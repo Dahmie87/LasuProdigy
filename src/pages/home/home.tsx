@@ -1,5 +1,6 @@
 import HomeMain from "./content";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import gns from "../../assets/images/gns.jpg";
 
 function HomeHeader() {
@@ -53,25 +54,28 @@ function HomeHeader() {
               </div>
               <ul className="space-y-2 mt-10">
                 <li className="text-xl ">
-                  <a href="#">Profile</a>
+                  <Link to="#">Profile</Link>
                 </li>
                 <li className="text-xl ">
-                  <a href="#">Courses</a>
+                  <Link to="#">Verification</Link>
                 </li>
                 <li className="text-xl ">
-                  <a href="#">CBT history</a>
+                  <Link to="/courses">Courses</Link>
                 </li>
                 <li className="text-xl ">
-                  <a href="#">Performance</a>
+                  <Link to="#">CBT history</Link>
                 </li>
                 <li className="text-xl ">
-                  <a href="#">Leaderboard</a>
+                  <Link to="#">Performance</Link>
                 </li>
                 <li className="text-xl ">
-                  <a href="#">Settings</a>
+                  <Link to="#">Leaderboard</Link>
                 </li>
                 <li className="text-xl ">
-                  <a href="#">About</a>
+                  <Link to="#">Settings</Link>
+                </li>
+                <li className="text-xl ">
+                  <Link to="/About">About</Link>
                 </li>
               </ul>
             </div>

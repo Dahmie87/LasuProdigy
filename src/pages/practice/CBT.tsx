@@ -171,22 +171,18 @@ export default function CBTpage() {
   }
   return (
     <div className="flex flex-col h-screen">
-      {/* ==== Header (unchanged) ==== */}
       <CBTHeader timer={formatTime(timerSeconds)} />
 
-      {/* ==== Main content area with sidebar + question area ==== */}
       <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
-        {/* ==== Sidebar on the LEFT (desktop), BELOW on mobile) ==== */}
         <aside className="w-full md:w-64 order-2 md:order-1 border-red-900 flex flex-col p-4 overflow-y-auto">
-          {/* Anything you want above the boxes */}
+          {/* Random things i will add later*/}
           <div className="mb-4">
             <p className="text-sm font-medium text-gray-700 mb-2">
               Omotayo Damilare Hello
             </p>
-            {/* Example: progress text, timer, etc. */}
           </div>
 
-          {/* Question boxes (6 per row) */}
+          {/*6 per row */}
           <div className="grid grid-cols-6 gap-2">
             {Questions.map((_, index) => {
               const attempted = selectedOptions[index];
@@ -210,7 +206,6 @@ export default function CBTpage() {
           </div>
         </aside>
 
-        {/* ==== Main Question Section ==== */}
         <div className="flex flex-col flex-1 overflow-y-auto order-1 md:order-2">
           <div className="p-4 flex-1">
             <div className="mb-6">
@@ -331,13 +326,6 @@ export default function CBTpage() {
               >
                 Submit
               </button>
-
-              {/* <button
-                onClick={() => setModal(false)}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg"
-              >
-                Cancel
-              </button> */}
             </div>
           </div>
         </div>

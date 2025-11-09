@@ -13,6 +13,9 @@ import CBTpage from "./pages/practice/CBT";
 import PreQuickTestPage from "./pages/practice/preQuickTest";
 import CBTResultsPage from "./pages/practice/cbtResults";
 import QuickTestPage from "./pages/practice/QuickTest";
+import ReviewPage from "./pages/practice/Review";
+import AboutPage from "./pages/home/About";
+import CoursesPage from "./pages/home/Courses";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -111,6 +114,30 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 8,
+    pageName: "CBT Review",
+    url: "/Review",
+    page: <ReviewPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 9,
+    pageName: "CBT Review",
+    url: "/About",
+    page: <AboutPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 10,
+    pageName: "CBT Review",
+    url: "/courses",
+    page: <CoursesPage />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -149,6 +176,9 @@ function AppLayout() {
     "/preCbt",
     "/CBT-test/:testtype/course/:courseid",
     "/Pre-Quick-Test",
+    "/CBTresults",
+    "/About",
+    "/courses",
   ];
   const shouldHIdeFooterBool =
     HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||
