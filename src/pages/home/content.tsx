@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import ArrowRightIcon from "../../assets/icons/arrow";
 import algebra from "../../assets/images/algebra.png";
 import gns from "../../assets/images/gns.jpg";
@@ -55,9 +56,9 @@ function LabIcon() {
 }
 
 const popCourses = [
-  { id: 2, courseName: "Physics", icons: <CalculateIcon /> },
+  { id: 2, courseName: "Mechanics", icons: <CalculateIcon /> },
   { id: 1, courseName: "Calculus", icons: <LabIcon /> },
-  { id: 3, courseName: "BioChemistry", icons: <CalculateIcon /> },
+  { id: 3, courseName: "Acids, Bases and Salts", icons: <CalculateIcon /> },
 ];
 
 const lastTestTaken = {
@@ -81,7 +82,13 @@ function MyCourses({ name, image }: MyCoursesProps) {
 function CoursesSection() {
   return (
     <section>
-      <h2 className="text-xl font-bold text-gray-900 mb-4">My Courses</h2>
+      <div className="flex justify-between">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">My Courses</h2>
+        <Link to={"/courses"}>
+          {" "}
+          <p className="text-sm  text-sky-500">See more courses</p>
+        </Link>{" "}
+      </div>
       <div className="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden -mx-4 px-4">
         {" "}
         <div className="flex items-stretch gap-4">
@@ -151,7 +158,7 @@ function PopularSection() {
   return (
     <section>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-900">Popular</h2>
+        <h2 className="text-xl font-bold text-gray-900">Popular Topics</h2>
         <a className="text-sm font-semibold text-sky-500" href="#">
           See All
         </a>
