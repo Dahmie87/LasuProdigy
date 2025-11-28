@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function PreCbtHeader() {
+  const { type } = useParams();
+
   return (
     <header className="top-0 z-10 bg-background-light/80 ">
       <div className="container mx-auto flex items-center justify-between h-16">
@@ -24,7 +26,7 @@ function PreCbtHeader() {
           </button>
         </Link>
         <h1 className="text-lg font-bold text-foreground-light dark:text-foreground-dark">
-          CBT Test
+          {type == "CBT" ? "CBT Test" : "Quick Test"}
         </h1>
         <div className="w-6"></div>
       </div>
@@ -33,15 +35,29 @@ function PreCbtHeader() {
 }
 
 function PreCBTSubHeading() {
+  const { type } = useParams();
   return (
     <div>
-      <h2 className="text-2xl font-bold text-foreground-light dark:text-foreground-dark">
-        LASU Exam Simulator
-      </h2>
-      <p className="mt-2 text-muted-light dark:text-muted-dark">
-        This CBT mode simulates LASU exam LEMA and helps to prepare both
-        effocoently and adequately.
-      </p>
+      {type == "CBT" ? (
+        <div>
+          <h2 className="text-2xl font-bold text-foreground-light dark:text-foreground-dark">
+            LASU Exam Simulator
+          </h2>
+          <p className="mt-2 text-muted-light dark:text-muted-dark">
+            This CBT mode simulates LASU exam LEMA and helps to prepare both
+            effocoently and adequately.
+          </p>
+        </div>
+      ) : (
+        <div>
+          <h2 className="text-2xl font-bold text-foreground-light dark:text-foreground-dark">
+            VLAP test mode
+          </h2>
+          <p className="mt-2 text-muted-light dark:text-muted-dark">
+            This Quick Tes mode simulates LASU tests VLAP
+          </p>
+        </div>
+      )}
     </div>
   );
 }
@@ -54,13 +70,21 @@ function PreCBTSubHeading() {
 // }
 
 function PreCbtCard() {
+  const { type } = useParams();
+
   const CARD_ARRAY = [
-    { id: 1, label: "Number of questions", value: "35 questions" },
-    { id: 2, label: "Timer", value: "20 minuttes" },
+    {
+      id: 1,
+      label: "Number of questions",
+      value: type == "CBT" ? "35 questions" : "15 questions",
+    },
+    {
+      id: 2,
+      label: "Timer",
+      value: type == "CBT" ? "20 minutes" : "10 minutes",
+    },
     { id: 3, label: "Difficulty", value: "Mixed" },
   ];
-
-  console.log();
 
   return (
     <div>
@@ -87,6 +111,8 @@ export default function PreCBTpage() {
     setCourseSelected(event.target.value);
   };
   console.log(courseselected);
+  const { type } = useParams();
+  const CBT_LINK = type == "CBT" ? "CBTtest" : "qtest";
   return (
     <div className="bg-background-light dark:bg-background-dark font-display">
       <div className="flex flex-col min-h-screen">
@@ -118,7 +144,7 @@ export default function PreCBTpage() {
           </div>
         </div>
 
-        <Link to={"/CBT-test/CBTtest/course/" + courseselected}>
+        <Link to={`/CBT-test/${CBT_LINK}/course/${courseselected}`}>
           <div className=" bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
             <div className="container mx-auto p-4">
               <button

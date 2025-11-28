@@ -5,13 +5,16 @@ import {
   Link,
 } from "react-router-dom";
 
+const total = 30;
+
+// import { useState } from "react";
+
 function ScoreSection() {
   const [searchParams] = useSearchParams();
 
   const cbtScore = searchParams.get("CBT");
   const RADIUS = 44;
   const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-  const total = 30;
 
   const decodedScore = cbtScore ? parseInt(atob(cbtScore)) : 0;
   const RATIO = (decodedScore / total) * CIRCUMFERENCE;
@@ -62,27 +65,70 @@ function ScoreSection() {
   );
 }
 
-function PerformanceSection() {
-  const PERFORMANCE_ARRAY = [
-    { id: 1, name: "Questions failed", value: "7/30" },
-    { id: 2, name: "Questions attempted", value: "29/30" },
-    { id: 3, name: "Time Spent", value: "18:05" },
-    { id: 4, name: "Time remaining", value: "01:55" },
-  ];
+// function PerformanceSection() {
+//   const [searchParams] = useSearchParams();
+
+//   const [morePerformance, setMorePerformance] = useState(true);
+
+//   const cbtScore = searchParams.get("CBT");
+//   const decodedScore = cbtScore ? parseInt(atob(cbtScore)) : 0;
+//   const percentScore = (decodedScore / 30) * 100;
+//   const PercentFlloor = Math.floor(percentScore);
+
+//   // const PERFORMANCE_ARRAY = [
+//   //   { id: 2, hide: false, name: "Questions attempted", value: "29/30" },
+//   //   { id: 1, hide: false, name: "Questions failed", value: "7/30" },
+//   //   {
+//   //     id: 3,
+//   //     hide: false,
+//   //     name: "Perccentage",
+//   //     value: `${PercentFlloor}%`,
+//   //   },
+//   //   { id: 4, hide: false, name: "Time remaining", value: "01:55" },
+//   //   {
+//   //     id: 5,
+//   //     hide: { morePerformance },
+//   //     name: "Time remaining",
+//   //     value: "01:55",
+//   //   },
+//   //   { id: 6, hide: true, name: "Time remaining", value: "01:55" },
+//   //   { id: 7, hide: true, name: "Time remaining", value: "01:55" },
+//   // ];
+//   return (
+//     <section
+//       className="mb-6"
+//       onClick={() => {
+//         setMorePerformance(false);
+//       }}
+//     >
+//       <div className="flex justify-between">
+//         <h3 className="mb-4 text-lg font-semibold text-gray-900">
+//           Performance Analysis
+//         </h3>
+//         <p
+//           onClick={() => {
+//             setMorePerformance(false);
+//           }}
+//           className="text-sm text-sky-500 font-bold"
+//         >
+//           see more
+//         </p>
+//       </div>
+//     </section>
+//   );
+// }
+type PerformanceProps = {
+  name: string;
+  value: string;
+};
+function PerformanceComponent({ name, value }: PerformanceProps) {
   return (
-    <section className="mb-6">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">
-        Performance Analysis
-      </h3>
-      <div className="grid grid-cols-3 gap-4">
-        {PERFORMANCE_ARRAY.map((perf) => (
-          <div className="p-8 w-full bg-white" key={perf.id}>
-            <h5 className="font-bold text-sm">{perf.name}</h5>
-            <p>{perf.value}</p>
-          </div>
-        ))}
+    <div>
+      <div className="p-8 w-full bg-white">
+        <h5 className="font-bold text-sm">{name}</h5>
+        <p>{value}</p>
       </div>
-    </section>
+    </div>
   );
 }
 export default function CBTResultsPage() {
@@ -94,8 +140,26 @@ export default function CBTResultsPage() {
 
   const decodedScore = cbtScore ? parseInt(atob(cbtScore)) : 0;
 
-  const { answers } = LOCATION.state;
-  console.log(answers);
+  const { answers, timerSeconds } = LOCATION.state;
+  const ATTEMPTED_ARR = answers.filter(
+    (answer) => answer.selected !== undefined
+  );
+  const attempted = ATTEMPTED_ARR.length;
+  const percent = `${Math.floor((decodedScore / total) * 100)}%`;
+  console.log(timerSeconds);
+  const formatTimeRem = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const min_str = m.toString();
+    const s = seconds % 60;
+    return `${min_str}mins ${s}secs`;
+  };
+  const averageTime = (secs: number) => {
+    const time_used = 1200 - secs;
+    const avg = Math.floor(time_used / total);
+
+    return `${avg} seconds`;
+  };
+  console.log(averageTime(timerSeconds));
   //   const angle = (decodedScore / total) * 360;
   //   console.log(angle);
   return (
@@ -109,7 +173,29 @@ export default function CBTResultsPage() {
           </div>
           <div className="p-4">
             <ScoreSection />
-            <PerformanceSection />
+            <section className="mb-6">
+              <div className="flex justify-between">
+                <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                  Performance Analysis
+                </h3>
+                <p className="text-sm text-sky-500 font-bold">see more</p>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <PerformanceComponent value={percent} name={"Percentage"} />
+                <PerformanceComponent
+                  value={attempted}
+                  name={"Questions attempted"}
+                />
+                <PerformanceComponent
+                  value={formatTimeRem(timerSeconds)}
+                  name={"Time remaining"}
+                />
+                <PerformanceComponent
+                  value={averageTime(timerSeconds)}
+                  name={"Average Time "}
+                />
+              </div>
+            </section>
             <section className="grid grid-cols-2 gap-4">
               {" "}
               <button className="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-primary/10 p-4 text-center">
