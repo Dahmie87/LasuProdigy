@@ -78,10 +78,10 @@ export default function PracticePage() {
     <div className="flex flex-col  font-display bg-background-light dark:bg-background-dark">
       <Header />
       <main className="flex-grow overflow-y-auto px-4 space-y-6 pb-6">
-        <Link to={"/preCbt"}>
+        <Link to={"/preCbt/CBT"}>
           <CBTModeCard />
         </Link>
-        <Link to="/Pre-Quick-Test">
+        <Link to="/preCbt/quicktest">
           <ModeCard
             icon="timer"
             title="Quick Test"

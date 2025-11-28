@@ -16,11 +16,14 @@ import QuickTestPage from "./pages/practice/QuickTest";
 import ReviewPage from "./pages/practice/Review";
 import AboutPage from "./pages/home/About";
 import CoursesPage from "./pages/home/Courses";
+import { LoginPage } from "./pages/home/Login";
+import { ProfilePage } from "./pages/home/menu/Profile";
+import { RegisterPage } from "./pages/home/menu/Register";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
     pageName: "Home",
-    url: "/",
+    url: "/home",
     page: <HomePage />,
     icon: (
       <svg
@@ -77,7 +80,7 @@ const NAVIGATION_ARRAY = [
   {
     id: 3,
     pageName: "PreCbt",
-    url: "/preCbt",
+    url: "/preCbt/:type",
     page: <PreCBTpage />,
     icon: "",
     icon2: "",
@@ -138,6 +141,38 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 11,
+    pageName: "login page",
+    url: "/student/login",
+    page: <LoginPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 13,
+    pageName: "login page",
+    url: "/student/Profile",
+    page: <ProfilePage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 14,
+    pageName: "Sign UP page",
+    url: "/student/sign-up",
+    page: <RegisterPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 15,
+    pageName: "home",
+    url: "/",
+    page: <HomePage />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -179,10 +214,14 @@ function AppLayout() {
     "/CBTresults",
     "/About",
     "/courses",
+    "/student/login",
+    "/student/Profile",
+    "/student/sign-up",
   ];
   const shouldHIdeFooterBool =
     HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||
-    LOCATION.pathname.startsWith("/CBT-test/");
+    LOCATION.pathname.startsWith("/CBT-test/") ||
+    LOCATION.pathname.startsWith("/preCbt/");
   return (
     <div
       className="bg-gray-50 relative flex h-auto min-h-screen w-full flex-col justify-between group/design-root"

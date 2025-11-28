@@ -1,10 +1,36 @@
 import HomeMain from "./content";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import gns from "../../assets/images/gns.jpg";
+import gns from "../../assets/images/man.png";
 
 function HomeHeader() {
   const [open, setOpen] = useState(false);
+
+  const isAuthenticated = localStorage.getItem("access");
+  let MENU_LINKS;
+  if (isAuthenticated) {
+    MENU_LINKS = [
+      { id: 1, value: "Profile", url: "/student/Profile" },
+      { id: 2, value: "Verification", url: "/courses" },
+      { id: 3, value: "Courses", url: "/courses" },
+      { id: 4, value: "Leaderboard", url: "/courses" },
+      { id: 5, value: "About", url: "/About" },
+    ];
+  } else {
+    MENU_LINKS = [
+      { id: 1, value: "Login", url: "/student/login" },
+      { id: 2, value: "Courses", url: "/courses" },
+      { id: 3, value: "Settings", url: "/courses" },
+      { id: 4, value: "About", url: "/About" },
+    ];
+  }
+  const HomeNavigate = useNavigate();
+  function logOut() {
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    HomeNavigate("/home");
+  }
 
   return (
     <header className="bg-white sticky top-0 z-10 shadow-sm">
@@ -53,30 +79,21 @@ function HomeHeader() {
                 <p className="mt-2 text-xs text-red-500">Not verified</p>
               </div>
               <ul className="space-y-2 mt-10">
-                <li className="text-xl ">
-                  <Link to="#">Profile</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="#">Verification</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="/courses">Courses</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="#">CBT history</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="#">Performance</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="#">Leaderboard</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="#">Settings</Link>
-                </li>
-                <li className="text-xl ">
-                  <Link to="/About">About</Link>
-                </li>
+                {MENU_LINKS.map((eachLINK) => (
+                  <li className="text-xl " key={eachLINK.id}>
+                    <Link to={eachLINK.url}>{eachLINK.value}</Link>
+                  </li>
+                ))}
+                {isAuthenticated ? (
+                  <div onClick={logOut}>
+                    <li className="text-l pt-15" onClick={logOut}>
+                      {" "}
+                      Log out
+                    </li>
+                  </div>
+                ) : (
+                  ""
+                )}{" "}
               </ul>
             </div>
           </div>

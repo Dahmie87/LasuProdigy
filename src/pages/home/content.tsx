@@ -270,55 +270,55 @@ function ProgressSection() {
     </section>
   );
 }
-function FeedSection() {
-  return (
-    <section>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-900">Feed</h2>
-        <a
-          className="text-sm font-semibold text-[var(--primary-color)]"
-          href="#"
-        >
-          View Full Feed
-        </a>
-      </div>
-      <div className="space-y-4">
-        <div className="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
-          <img
-            alt="Ethan Carter profile picture"
-            className="size-10 rounded-full object-cover"
-            // src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu72hwb4PxaZonOvZqPCGq30wh9DrPiVdircLvgRF1izk6I_WA4M1_n5R-4sj7brhBH4RG-gNEGb8BcloR87adzDsiXTkwMnCKp4q0WdckTSx-vB8WJkL-pwFDaVY7VUQHxy9sYV3EgLRd-zur9iTnmYFEcBYhfQy_yfjyXgHuzjz_YuQeuBe-J0CbO6h9drHBaJomDOmlyEYYuJUh_Nd41NNEmDeqARnubGU2ZNG3czg3aqZFeIMlsBZmEe6n75H6fEJcw2vUBjzR"
-          />
-          <div>
-            <p className="text-sm font-semibold text-gray-800">Israel | SLT</p>
-            <p className="text-xs text-gray-500">2h ago</p>
-            <p className="text-sm text-gray-700 mt-2">
-              Just finished the calculus practice test! That was a real brain
-              teaser. How did everyone else do?
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
-          <img
-            alt="Sophia Lee profile picture"
-            className="size-10 rounded-full object-cover"
-            // src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0ykYsCO4cnHJrRKh-loDvrvG8ev6AmCx4uuNyKGz9QmA7S8zrmXCbHvD0s2VcbBPpHJd4Xels_WbsBwqTI3wLftwV9N_QtwtY7TjnHoPZiCObrlfrhnoUeF8Ge8AguoX6kPqJVHAk95JvHajVjjn_mLUTBi6skTAC3KPu8xTzCT3IFdJN1i2RSjuBthmI9R72-xljmjB0Ggft07tNdnBXj9crItNbIQg1ToTgS_drkJEzL7az0rxYxn0hp_uCyjDPmQiDHz-7htcR"
-          />
-          <div>
-            <p className="text-sm font-semibold text-gray-800">
-              Segun | Computer Science
-            </p>
-            <p className="text-xs text-gray-500">4h ago</p>
-            <p className="text-sm text-gray-700 mt-2">
-              Excited to start the new physics course today. Any tips from those
-              who've already taken it? #science #learning
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// function FeedSection() {
+//   return (
+//     <section>
+//       <div className="flex justify-between items-center mb-4">
+//         <h2 className="text-xl font-bold text-gray-900">Feed</h2>
+//         <a
+//           className="text-sm font-semibold text-[var(--primary-color)]"
+//           href="#"
+//         >
+//           View Full Feed
+//         </a>
+//       </div>
+//       <div className="space-y-4">
+//         <div className="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
+//           <img
+//             alt="Ethan Carter profile picture"
+//             className="size-10 rounded-full object-cover"
+//             // src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu72hwb4PxaZonOvZqPCGq30wh9DrPiVdircLvgRF1izk6I_WA4M1_n5R-4sj7brhBH4RG-gNEGb8BcloR87adzDsiXTkwMnCKp4q0WdckTSx-vB8WJkL-pwFDaVY7VUQHxy9sYV3EgLRd-zur9iTnmYFEcBYhfQy_yfjyXgHuzjz_YuQeuBe-J0CbO6h9drHBaJomDOmlyEYYuJUh_Nd41NNEmDeqARnubGU2ZNG3czg3aqZFeIMlsBZmEe6n75H6fEJcw2vUBjzR"
+//           />
+//           <div>
+//             <p className="text-sm font-semibold text-gray-800">Israel | SLT</p>
+//             <p className="text-xs text-gray-500">2h ago</p>
+//             <p className="text-sm text-gray-700 mt-2">
+//               Just finished the calculus practice test! That was a real brain
+//               teaser. How did everyone else do?
+//             </p>
+//           </div>
+//         </div>
+//         <div className="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
+//           <img
+//             alt="Sophia Lee profile picture"
+//             className="size-10 rounded-full object-cover"
+//             // src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0ykYsCO4cnHJrRKh-loDvrvG8ev6AmCx4uuNyKGz9QmA7S8zrmXCbHvD0s2VcbBPpHJd4Xels_WbsBwqTI3wLftwV9N_QtwtY7TjnHoPZiCObrlfrhnoUeF8Ge8AguoX6kPqJVHAk95JvHajVjjn_mLUTBi6skTAC3KPu8xTzCT3IFdJN1i2RSjuBthmI9R72-xljmjB0Ggft07tNdnBXj9crItNbIQg1ToTgS_drkJEzL7az0rxYxn0hp_uCyjDPmQiDHz-7htcR"
+//           />
+//           <div>
+//             <p className="text-sm font-semibold text-gray-800">
+//               Segun | Computer Science
+//             </p>
+//             <p className="text-xs text-gray-500">4h ago</p>
+//             <p className="text-sm text-gray-700 mt-2">
+//               Excited to start the new physics course today. Any tips from those
+//               who've already taken it? #science #learning
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 export default function HomeMain() {
   return (
     <main className="p-4 space-y-8">
@@ -327,7 +327,6 @@ export default function HomeMain() {
       <PopularSection />
       <DailySection />
       <ProgressSection />
-      <FeedSection />
     </main>
   );
 }

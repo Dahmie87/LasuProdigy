@@ -75,8 +75,9 @@ function OptionsSection(props: {
 }
 
 export default function CBTpage() {
-  const [timerSeconds, setTimerSeconds] = useState(1200);
   const params = useParams();
+  const testSecoods = params.testtype == "qtest" ? 600 : 1200;
+  const [timerSeconds, setTimerSeconds] = useState(testSecoods);
 
   const [timeModal, setTimeModal] = useState(false);
 
@@ -88,6 +89,7 @@ export default function CBTpage() {
   };
 
   const urlId = urlMap[params.courseid!];
+
   //  HH:MM:SS
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60)
@@ -124,20 +126,29 @@ export default function CBTpage() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const MY_QUESTIONS_API_URL = `http://localhost:8000/api/courses/${urlId}/`;
-
   useEffect(() => {
-    fetch(MY_QUESTIONS_API_URL)
+    const MY_QUESTIONS_API_URL = `http://localhost:8000/api/courses/${urlId}/`;
+    const AccessToken = localStorage.getItem("access");
+    console.log(AccessToken);
+
+    fetch(MY_QUESTIONS_API_URL, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         const shuffled = [...data.questions].sort(() => Math.random() - 0.5);
 
-        const limited = shuffled.slice(0, 30);
-
+        const limited =
+          params.testtype == "qtest"
+            ? shuffled.slice(0, 15)
+            : shuffled.slice(0, 30);
         setQuestions(limited);
       });
-  }, [MY_QUESTIONS_API_URL]);
-
+  }, []);
+  console.log(params.testtype);
   function submitAnswers() {
     const CORRECT_ARRAY = [];
     for (let i = 0; i < Questions.length; i++) {
@@ -166,7 +177,7 @@ export default function CBTpage() {
       correct: q.options.find((opt) => opt.is_correct)?.option_text,
     }));
     cbtNavigate(`/CBTresults?CBT=${encoded}`, {
-      state: { answers: answeredOptions },
+      state: { answers: answeredOptions, timerSeconds },
     });
   }
   return (
@@ -174,23 +185,22 @@ export default function CBTpage() {
       <CBTHeader timer={formatTime(timerSeconds)} />
 
       <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
-        <aside className="w-full md:w-64 order-2 md:order-1 border-red-900 flex flex-col p-4 overflow-y-auto">
-          {/* Random things i will add later*/}
-          <div className="mb-4">
-            <p className="text-sm font-medium text-gray-700 mb-2">
-              Omotayo Damilare Hello
-            </p>
-          </div>
+        {params.testtype !== "qtest" && (
+          <aside className="w-full md:w-64 order-2 md:order-1 border-red-900 flex flex-col p-4 overflow-y-auto">
+            {/* Random things i will add later*/}
+            <div className="mb-4">
+              <p className="text-sm font-bold mb-2">OMOTAYO DAMILARE</p>
+            </div>
 
-          {/*6 per row */}
-          <div className="grid grid-cols-6 gap-2">
-            {Questions.map((_, index) => {
-              const attempted = selectedOptions[index];
-              return (
-                <button
-                  key={index}
-                  onClick={() => setCurrentQuestion(index)}
-                  className={`w-8 h-8 rounded-md font-semibold flex items-center justify-center text-sm transition-colors duration-200
+            {/*6 per row */}
+            <div className="grid grid-cols-6 gap-2">
+              {Questions.map((_, index) => {
+                const attempted = selectedOptions[index];
+                return (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentQuestion(index)}
+                    className={`w-8 h-8 rounded-md font-semibold flex items-center justify-center text-sm transition-colors duration-200
               ${
                 attempted
                   ? "border-2 border-green-500"
@@ -198,14 +208,14 @@ export default function CBTpage() {
                   ? "border-2 border-blue-500"
                   : "border-2 border-gray-300"
               }`}
-                >
-                  {index + 1}
-                </button>
-              );
-            })}
-          </div>
-        </aside>
-
+                  >
+                    {index + 1}
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
+        )}
         <div className="flex flex-col flex-1 overflow-y-auto order-1 md:order-2">
           <div className="p-4 flex-1">
             <div className="mb-6">
