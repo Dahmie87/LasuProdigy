@@ -4,6 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import gns from "../../assets/images/man.png";
 
+function LogOutAlert() {
+  return (
+    <div className="bg-blue-400 py-4 px-8 text-white z-100 text-center">
+      You have successfully logged out of your account 0$12a6sd4$gs*6F4{" "}
+    </div>
+  );
+}
+
 function HomeHeader() {
   const [open, setOpen] = useState(false);
 
@@ -14,6 +22,7 @@ function HomeHeader() {
       { id: 1, value: "Profile", url: "/student/Profile" },
       { id: 2, value: "Verification", url: "/courses" },
       { id: 3, value: "Courses", url: "/courses" },
+      { id: 3, value: "History", url: "/courses" },
       { id: 4, value: "Leaderboard", url: "/courses" },
       { id: 5, value: "About", url: "/About" },
     ];
@@ -21,15 +30,18 @@ function HomeHeader() {
     MENU_LINKS = [
       { id: 1, value: "Login", url: "/student/login" },
       { id: 2, value: "Courses", url: "/courses" },
-      { id: 3, value: "Settings", url: "/courses" },
       { id: 4, value: "About", url: "/About" },
     ];
   }
   const HomeNavigate = useNavigate();
+  const [logAlert, setlogAlert] = useState(false);
   function logOut() {
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     HomeNavigate("/home");
+    setTimeout(() => {
+      setlogAlert(true);
+    }, 3000);
   }
 
   return (
@@ -48,7 +60,7 @@ function HomeHeader() {
             <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
           </svg>
         </button>
-
+        {logAlert && <LogOutAlert />}
         {open && (
           <div className="fixed inset-0 z-50 flex">
             <div
@@ -60,24 +72,26 @@ function HomeHeader() {
               <button onClick={() => setOpen(false)} className="mb-4">
                 ✕
               </button>
-              <div className="flex flex-col items-center p-4 bg-white shadow rounded-2xl">
-                {/* Profile Picture */}
-                <img
-                  src={gns}
-                  alt="Profile"
-                  className="w-24 h-24 rounded-full object-cover"
-                />
+              {isAuthenticated && (
+                <div className="flex flex-col items-center p-4 bg-white shadow rounded-2xl">
+                  {/* Profile Picture */}
+                  <img
+                    src={gns}
+                    alt="Profile"
+                    className="w-24 h-24 rounded-full object-cover"
+                  />
 
-                <div className="mt-3 text-center">
-                  <h2 className="text-lg font-semibold text-gray-800">
-                    Omotayo Damilare
-                  </h2>
-                  <p className="text-sm text-gray-500">@Dahmie</p>
+                  <div className="mt-3 text-center">
+                    <h2 className="text-lg font-semibold text-gray-800">
+                      Omotayo Damilare
+                    </h2>
+                    <p className="text-sm text-gray-500">@Dahmie</p>
+                  </div>
+
+                  {/* Verification Status */}
+                  <p className="mt-2 text-xs text-red-500">Not verified</p>
                 </div>
-
-                {/* Verification Status */}
-                <p className="mt-2 text-xs text-red-500">Not verified</p>
-              </div>
+              )}{" "}
               <ul className="space-y-2 mt-10">
                 {MENU_LINKS.map((eachLINK) => (
                   <li className="text-xl " key={eachLINK.id}>
@@ -85,12 +99,9 @@ function HomeHeader() {
                   </li>
                 ))}
                 {isAuthenticated ? (
-                  <div onClick={logOut}>
-                    <li className="text-l pt-15" onClick={logOut}>
-                      {" "}
-                      Log out
-                    </li>
-                  </div>
+                  <button onClick={logOut}>
+                    <li className="text-l pt-6"> Log out</li>
+                  </button>
                 ) : (
                   ""
                 )}{" "}

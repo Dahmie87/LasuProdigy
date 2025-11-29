@@ -19,6 +19,7 @@ import CoursesPage from "./pages/home/Courses";
 import { LoginPage } from "./pages/home/Login";
 import { ProfilePage } from "./pages/home/menu/Profile";
 import { RegisterPage } from "./pages/home/menu/Register";
+import { PreLogin } from "./components/NotLogin";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -173,6 +174,14 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 16,
+    pageName: "home",
+    url: "/user/not-logged-in",
+    page: <PreLogin />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -217,6 +226,7 @@ function AppLayout() {
     "/student/login",
     "/student/Profile",
     "/student/sign-up",
+    "/user/not-logged-in",
   ];
   const shouldHIdeFooterBool =
     HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||
