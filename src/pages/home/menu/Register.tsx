@@ -1,6 +1,7 @@
-import { VisibilityOn } from "../../../components/visibility";
+import { VisibilityOn, VisibilityOff } from "../../../components/visibility";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { ProfileHeader } from "./Profile";
 
 interface RegisterInputsProps {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
@@ -40,7 +41,11 @@ function RegisterInputs({
       setter: setPass,
     },
   ];
-
+  const [visible, setVisible] = useState(false);
+  function ToggleVisibility() {
+    setVisible((prev) => !prev);
+  }
+  console.log(visible);
   return (
     <div>
       {InputFields.map((field) => (
@@ -54,7 +59,7 @@ function RegisterInputs({
               <input
                 className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-none border-r-0 text-[#111318] focus:outline-0 focus:ring-2 focus:ring-sky-500/50 focus:z-10 border border-[#dbdfe6] bg-white h-14 placeholder:text-[#616f89] p-[15px] pr-2 text-base font-normal leading-normal rounded-lg"
                 placeholder="Enter your password"
-                type="password"
+                type={visible ? "text" : "password"}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   field.setter(e.target.value)
                 }
@@ -62,8 +67,9 @@ function RegisterInputs({
               <button
                 className="text-[#616f89] flex border border-[#dbdfe6] bg-white items-center justify-center px-4 rounded-r-lg border-l-0 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:z-10"
                 data-alt="Toggle password visibility"
+                onClick={ToggleVisibility}
               >
-                <VisibilityOn />
+                {visible ? <VisibilityOff /> : <VisibilityOn />}
               </button>
             </div>
           ) : (
@@ -113,6 +119,12 @@ export function RegisterPage() {
     "form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318] focus:outline-0 focus:ring-2 focus:ring-sky-500/50 border border-[#dbdfe6] bg-white h-14 placeholder:text-[#616f89] p-[15px] text-base font-normal leading-normal";
   if (confirmPassword !== userPassword) {
     buttonDisable = true;
+  }
+  let errorMatch = false;
+  console.log(confirmPassword.length);
+
+  if (buttonDisable && confirmPassword.length > userPassword.length) {
+    errorMatch = true;
     confirmClass =
       "form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318] focus:outline-0 focus:ring-2 focus:ring-red-500/50 border border-red-500 bg-white h-14 placeholder:text-[#616f89] p-[15px] text-base font-normal leading-normal";
   }
@@ -123,34 +135,7 @@ export function RegisterPage() {
         // style={{'fontFamily: Lexend'}}
       >
         <div className="layout-container flex h-full grow flex-col">
-          <header className="flex items-center justify-center whitespace-nowrap border-b border-solid border-b-[#f0f2f4] bg-white px-10 py-4">
-            <div className="flex items-center gap-3 text-[#111318]">
-              <div className="size-6 text-sky-500">
-                <svg
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clip-path="url(#clip0_6_330)">
-                    <path
-                      clip-rule="evenodd"
-                      d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    ></path>
-                  </g>
-                  <defs>
-                    {/* <clippath id="clip0_6_330">
-                      <rect fill="white" height="48" width="48"></rect>
-                    </clippath> */}
-                  </defs>
-                </svg>
-              </div>
-              <h2 className="text-[#111318] text-xl font-bold leading-tight tracking-[-0.015em]">
-                StudentApp
-              </h2>
-            </div>
-          </header>
+          <ProfileHeader />{" "}
           <main className="flex flex-1 justify-center p-4 sm:p-6 md:p-8">
             <div className="flex w-full max-w-md flex-col items-center">
               <div className="flex w-full flex-col gap-3 pt-8 pb-6 text-center">
@@ -180,7 +165,7 @@ export function RegisterPage() {
                       setConfirmPassword(e.target.value);
                     }}
                   />
-                  {buttonDisable && (
+                  {errorMatch && (
                     <p className="text-red-600 text-sm font-normal leading-normal pt-1">
                       Passwords do not match.
                     </p>
@@ -199,12 +184,11 @@ export function RegisterPage() {
               <div className="flex w-full items-center justify-center pt-2">
                 <p className="text-[#616f89] text-base font-normal leading-normal">
                   Already have an account?{" "}
-                  <a
-                    className="font-medium text-sky-500 hover:underline"
-                    href="#"
-                  >
-                    Log In
-                  </a>
+                  <Link to={"/student/login"}>
+                    <span className="font-medium text-sky-500 hover:underline">
+                      Log In
+                    </span>
+                  </Link>{" "}
                 </p>
               </div>
             </div>

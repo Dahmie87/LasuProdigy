@@ -110,6 +110,8 @@ export default function PreCBTpage() {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCourseSelected(event.target.value);
   };
+  const isAuthenticated = localStorage.getItem("access");
+
   console.log(courseselected);
   const { type } = useParams();
   const CBT_LINK = type == "CBT" ? "CBTtest" : "qtest";
@@ -117,7 +119,6 @@ export default function PreCBTpage() {
     <div className="bg-background-light dark:bg-background-dark font-display">
       <div className="flex flex-col min-h-screen">
         <PreCbtHeader />
-
         <div className="flex-grow container mx-auto px-4 py-8">
           <div className="space-y-8">
             <PreCBTSubHeading />
@@ -144,7 +145,13 @@ export default function PreCBTpage() {
           </div>
         </div>
 
-        <Link to={`/CBT-test/${CBT_LINK}/course/${courseselected}`}>
+        <Link
+          to={
+            isAuthenticated
+              ? `/CBT-test/${CBT_LINK}/course/${courseselected}`
+              : "/user/not-logged-in"
+          }
+        >
           <div className=" bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
             <div className="container mx-auto p-4">
               <button
