@@ -16,10 +16,12 @@ import QuickTestPage from "./pages/practice/QuickTest";
 import ReviewPage from "./pages/practice/Review";
 import AboutPage from "./pages/home/About";
 import CoursesPage from "./pages/home/Courses";
+import { CourseInfoPage } from "./pages/home/coursepage";
 import { LoginPage } from "./pages/home/Login";
 import { ProfilePage } from "./pages/home/menu/Profile";
 import { RegisterPage } from "./pages/home/menu/Register";
 import { PreLogin } from "./components/NotLogin";
+import { EditProfile } from "./pages/home/menu/Edit";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -182,6 +184,22 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 17,
+    pageName: "info",
+    url: "/courses/info",
+    page: <CourseInfoPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 18,
+    pageName: "edit profile page",
+    url: "/student/Profile/edit",
+    page: <EditProfile />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -225,8 +243,10 @@ function AppLayout() {
     "/courses",
     "/student/login",
     "/student/Profile",
+    "/student/Profile/edit",
     "/student/sign-up",
     "/user/not-logged-in",
+    "/courses/info",
   ];
   const shouldHIdeFooterBool =
     HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||

@@ -131,6 +131,7 @@ export default function PreCBTpage() {
                   <select
                     className=" font-semibold text-foreground-light dark:text-foreground-dark w-full"
                     onChange={handleChange}
+                    value={"jjsdk"}
                   >
                     <option value="none">-- none --</option>
                     <option value="CHM101">CHM 101 atoms</option>

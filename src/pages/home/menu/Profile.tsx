@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import ProfileMan from "../../../assets/images/man.png";
 import { ProdigyLogo } from "../Login";
 import { Refresh } from "../Login";
 import { useEffect, useState } from "react";
+import { EditIcon } from "../../../assets/icons/editIcon";
 
 export function ProfileHeader() {
   return (
@@ -48,10 +50,12 @@ function SubHeading2() {
         <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-slate-700  border border-slate-300  text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-100  transition-colors">
           <span className="truncate">View Public Profile</span>
         </button>
-        <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-sky-500 text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-sky-500/90 transition-colors">
-          <span className="material-symbols-outlined text-base">edit</span>
-          <span className="truncate">Edit Profile</span>
-        </button>
+        <Link to={"edit"}>
+          <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-sky-500 text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-sky-500/90 transition-colors">
+            <EditIcon />
+            <span className="truncate">Edit Profile</span>
+          </button>
+        </Link>
       </div>
     </div>
   );
@@ -111,6 +115,12 @@ function ProfileSection({ user }: ProfileAsideProps) {
                 Email
               </dt>
               <dd className="text-base text-slate-800 ">{user.email}</dd>
+            </div>
+            <div className="flex flex-col">
+              <dt className="text-sm font-medium text-slate-500  mb-1">
+                Phone.No
+              </dt>
+              <dd className="text-base text-slate-800 ">{user.phone_number}</dd>
             </div>
             <div className="flex flex-col">
               <dt className="text-sm font-medium text-slate-500 d mb-1">

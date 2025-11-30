@@ -140,10 +140,21 @@ export default function CBTResultsPage() {
 
   const decodedScore = cbtScore ? parseInt(atob(cbtScore)) : 0;
 
-  const { answers, timerSeconds } = LOCATION.state;
+  interface Answer {
+    questionId: number;
+    selected?: string; // or whatever type `selected` actually is
+  }
+
+  // Then, type LOCATION.state
+  const { answers, timerSeconds } = LOCATION.state as {
+    answers: Answer[];
+    timerSeconds: number;
+  };
+
   const ATTEMPTED_ARR = answers.filter(
     (answer) => answer.selected !== undefined
   );
+
   const attempted = ATTEMPTED_ARR.length;
   const percent = `${Math.floor((decodedScore / total) * 100)}%`;
   console.log(timerSeconds);
@@ -183,7 +194,7 @@ export default function CBTResultsPage() {
               <div className="grid grid-cols-3 gap-4">
                 <PerformanceComponent value={percent} name={"Percentage"} />
                 <PerformanceComponent
-                  value={attempted}
+                  value={`${attempted}`}
                   name={"Questions attempted"}
                 />
                 <PerformanceComponent

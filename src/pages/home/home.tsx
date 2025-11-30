@@ -36,12 +36,14 @@ function HomeHeader() {
   const HomeNavigate = useNavigate();
   const [logAlert, setlogAlert] = useState(false);
   function logOut() {
+    setlogAlert(true);
+
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
-    HomeNavigate("/home");
     setTimeout(() => {
-      setlogAlert(true);
-    }, 3000);
+      HomeNavigate("/home");
+      setlogAlert(false);
+    }, 1500);
   }
 
   return (
