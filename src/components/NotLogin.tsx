@@ -1,21 +1,37 @@
 import { Link } from "react-router-dom";
+import ShieldIcon from "../assets/icons/shield";
+import { SaveIcon } from "../assets/icons/save";
+import RocketIcon from "../assets/icons/rocket";
+import LockIcon from "../assets/icons/lock";
+import LightIcon from "../assets/icons/light";
+
 export function PreLogin() {
   return (
     <div className="font-display bg-background-light ">
       <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden text-slate-800 ">
         {/* <!-- TopAppBar --> */}
         <div className="flex items-center bg-background-light  p-4 pb-2 justify-between sticky top-0 z-10">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full text-slate-700 ">
-            <span className="material-symbols-outlined text-2xl">close</span>
-          </div>
+          <Link to={"/home"}>
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-full text-slate-700 ">
+              <svg
+                fill="#000"
+                height="24"
+                viewBox="0 0 256 256"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+              </svg>
+            </div>
+          </Link>
           <h2 className="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center text-slate-900">
             Access Restricted
           </h2>
           <div className="size-10 shrink-0"></div>
         </div>
         <div className="flex flex-col items-center justify-center p-4 pt-12">
-          <div className="flex items-center justify-center size-20 rounded-full bg-sky-500 mb-6 text--sky-500">
-            <span className="material-symbols-outlined !text-5xl">lock</span>
+          <div className="flex items-center justify-center size-20 rounded-full bg-sky-500/30 mb-6 text--sky-500">
+            <LockIcon />
           </div>
         </div>
         {/* <!-- HeadlineText --> */}
@@ -36,8 +52,8 @@ export function PreLogin() {
           <div className="flex flex-col space-y-2">
             {/* <!-- ListItem 1 --> */}
             <div className="flex items-center gap-4 py-2">
-              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500 shrink-0 size-12">
-                <span className="material-symbols-outlined">save</span>
+              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500/30 shrink-0 size-12">
+                <SaveIcon />
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-slate-800  text-base font-medium leading-normal line-clamp-1">
@@ -51,8 +67,8 @@ export function PreLogin() {
             </div>
             {/* <!-- ListItem 2 --> */}
             <div className="flex items-center gap-4 py-2">
-              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500 shrink-0 size-12">
-                <span className="material-symbols-outlined">lightbulb</span>
+              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500/30 shrink-0 size-12">
+                <LightIcon />{" "}
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-slate-800  text-base font-medium leading-normal line-clamp-1">
@@ -66,8 +82,8 @@ export function PreLogin() {
             </div>
             {/* <!-- ListItem 3 --> */}
             <div className="flex items-center gap-4 py-2">
-              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500 shrink-0 size-12">
-                <span className="material-symbols-outlined">shield_person</span>
+              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500/30 shrink-0 size-12">
+                <ShieldIcon />{" "}
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-slate-800  text-base font-medium leading-normal line-clamp-1">
@@ -80,8 +96,8 @@ export function PreLogin() {
             </div>
             {/* <!-- ListItem 4 --> */}
             <div className="flex items-center gap-4 py-2">
-              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500 shrink-0 size-12">
-                <span className="material-symbols-outlined">rocket_launch</span>
+              <div className="text--sky-500 flex items-center justify-center rounded-xl bg-sky-500/30 shrink-0 size-12">
+                <RocketIcon />{" "}
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-slate-800  text-base font-medium leading-normal line-clamp-1">

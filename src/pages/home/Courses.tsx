@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function CoursesPage() {
@@ -24,6 +24,12 @@ export default function CoursesPage() {
         console.log(data);
       });
   }, []);
+
+  const courseNavigate = useNavigate();
+  function coursePagePortal(course: course) {
+    courseNavigate("info", { state: course.title });
+    console.log(course.title);
+  }
   return (
     <div className="font-display bg-background-light ">
       <div className="flex flex-col min-h-screen">
@@ -54,7 +60,12 @@ export default function CoursesPage() {
         </header>
         <main className="flex-grow p-4 space-y-4">
           {course.map((c) => (
-            <div className="bg-white  rounded-xl shadow-sm overflow-hidden">
+            <div
+              onClick={() => {
+                coursePagePortal(c);
+              }}
+              className="bg-white rounded-xl shadow-sm overflow-hidden mb-4"
+            >
               <div className="flex items-center p-4">
                 <div
                   className="w-24 h-24 bg-center bg-no-repeat bg-cover rounded-lg mr-4"

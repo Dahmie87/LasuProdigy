@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
+// import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import ArrowRightIcon from "../../assets/icons/arrow";
 import algebra from "../../assets/images/algebra.png";
 import gns from "../../assets/images/gns.jpg";
 import mat from "../../assets/images/mat.png";
@@ -9,63 +8,63 @@ type MyCoursesProps = {
   name: string;
   image: string;
 };
-type PopularProps = {
-  title: string;
-  icon: ReactNode;
-};
+// type PopularProps = {
+//   title: string;
+//   icon: ReactNode;
+// };
 
 const userCourses = [
-  { id: 1, courseName: "MAT 101- Algebra and Trigonometry", courseImage: mat },
+  { id: 1, courseName: "MAT 101", courseImage: mat },
   {
     id: 2,
-    courseName: "PHY 101 Mechanics- Kinematics and Dynamics",
+    courseName: "PHY 101",
     courseImage: phy,
   },
   {
     id: 3,
-    courseName: "GNS 101 Use of English, Library and ICT",
+    courseName: "GNS 101",
     courseImage: gns,
   },
 ];
 
-function CalculateIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24px"
-      viewBox="0 -960 960 960"
-      width="24px"
-      fill="#1f1f1f"
-    >
-      <path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
-    </svg>
-  );
-}
-function LabIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24px"
-      viewBox="0 -960 960 960"
-      width="24px"
-      fill="#1f1f1f"
-    >
-      <path d="M200-120q-51 0-72.5-45.5T138-250l222-270v-240h-40q-17 0-28.5-11.5T280-800q0-17 11.5-28.5T320-840h320q17 0 28.5 11.5T680-800q0 17-11.5 28.5T640-760h-40v240l222 270q32 39 10.5 84.5T760-120H200Zm0-80h560L520-492v-268h-80v268L200-200Zm280-280Z" />
-    </svg>
-  );
-}
+// function CalculateIcon() {
+//   return (
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       height="24px"
+//       viewBox="0 -960 960 960"
+//       width="24px"
+//       fill="#1f1f1f"
+//     >
+//       <path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
+//     </svg>
+//   );
+// }
+// function LabIcon() {
+//   return (
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       height="24px"
+//       viewBox="0 -960 960 960"
+//       width="24px"
+//       fill="#1f1f1f"
+//     >
+//       <path d="M200-120q-51 0-72.5-45.5T138-250l222-270v-240h-40q-17 0-28.5-11.5T280-800q0-17 11.5-28.5T320-840h320q17 0 28.5 11.5T680-800q0 17-11.5 28.5T640-760h-40v240l222 270q32 39 10.5 84.5T760-120H200Zm0-80h560L520-492v-268h-80v268L200-200Zm280-280Z" />
+//     </svg>
+//   );
+// }
 
-const popCourses = [
-  { id: 2, courseName: "Mechanics", icons: <CalculateIcon /> },
-  { id: 1, courseName: "Calculus", icons: <LabIcon /> },
-  { id: 3, courseName: "Acids, Bases and Salts", icons: <CalculateIcon /> },
-];
+// const popCourses = [
+//   { id: 2, courseName: "Mechanics", icons: <CalculateIcon /> },
+//   { id: 1, courseName: "Calculus", icons: <LabIcon /> },
+//   { id: 3, courseName: "Acids, Bases and Salts", icons: <CalculateIcon /> },
+// ];
 
-const lastTestTaken = {
-  name: "Algebra Practice Test",
-  dateTaken: "4 days ago",
-  isCompleted: true,
-};
+// const lastTestTaken = {
+//   name: "Algebra Practice Test",
+//   dateTaken: "4 days ago",
+//   isCompleted: true,
+// };
 
 function MyCourses({ name, image }: MyCoursesProps) {
   return (
@@ -74,17 +73,22 @@ function MyCourses({ name, image }: MyCoursesProps) {
         className="w-full aspect-square bg-cover bg-center rounded-lg"
         style={{ backgroundImage: `url(${image})` }}
       ></div>
-      <p className="text-gray-800 text-sm font-semibold">{name} </p>
+      <p className="text-gray-800 text-sm font-bold">{name} </p>
     </div>
   );
 }
 
 function CoursesSection() {
+  const token = localStorage.getItem("access");
+  let IfAuthLink = "/user/not-logged-in";
+  if (token) {
+    IfAuthLink = "/courses";
+  }
   return (
     <section>
       <div className="flex justify-between">
         <h2 className="text-xl font-bold text-gray-900 mb-4">My Courses</h2>
-        <Link to={"/courses"}>
+        <Link to={IfAuthLink}>
           {" "}
           <p className="text-sm  text-sky-500">See more courses</p>
         </Link>{" "}
@@ -105,76 +109,76 @@ function CoursesSection() {
   );
 }
 
-function RecentSection() {
-  return (
-    <section>
-      <h2 className="text-xl font-bold text-gray-900 mb-4">Recent</h2>
-      <div className="bg-white p-4 rounded-lg shadow-sm">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex-grow">
-            <p className="text-xs text-gray-500">Last Attempted</p>
-            <p className="text-base font-bold text-gray-900 mt-1">
-              {lastTestTaken.name}
-            </p>
-            <p className="text-sm text-gray-500 mt-1">
-              Attempted {lastTestTaken.dateTaken}
-            </p>
-            <button className="mt-4 flex items-center justify-center rounded-md h-9 px-4 bg-sky-500 text-white text-sm font-semibold">
-              {lastTestTaken.isCompleted ? (
-                <span>Review</span>
-              ) : (
-                <span>Continue</span>
-              )}
-            </button>
-          </div>
-          <div
-            className="w-24 h-24 bg-cover bg-center rounded-md flex-shrink-0"
-            style={{
-              backgroundImage: ` url(${algebra})`,
-            }}
-          ></div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// function RecentSection() {
+//   return (
+//     <section>
+//       <h2 className="text-xl font-bold text-gray-900 mb-4">Recent</h2>
+//       <div className="bg-white p-4 rounded-lg shadow-sm">
+//         <div className="flex items-center justify-between gap-4">
+//           <div className="flex-grow">
+//             <p className="text-xs text-gray-500">Last Attempted</p>
+//             <p className="text-base font-bold text-gray-900 mt-1">
+//               {lastTestTaken.name}
+//             </p>
+//             <p className="text-sm text-gray-500 mt-1">
+//               Attempted {lastTestTaken.dateTaken}
+//             </p>
+//             <button className="mt-4 flex items-center justify-center rounded-md h-9 px-4 bg-sky-500 text-white text-sm font-semibold">
+//               {lastTestTaken.isCompleted ? (
+//                 <span>Review</span>
+//               ) : (
+//                 <span>Continue</span>
+//               )}
+//             </button>
+//           </div>
+//           <div
+//             className="w-24 h-24 bg-cover bg-center rounded-md flex-shrink-0"
+//             style={{
+//               backgroundImage: ` url(${algebra})`,
+//             }}
+//           ></div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
-function PopularSection() {
-  function PopularCourses({ title, icon }: PopularProps) {
-    return (
-      <div className="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm">
-        <div className="text-[var(--primary-color)] flex items-center justify-center rounded-lg bg-blue-100 shrink-0 size-12">
-          {icon}
-        </div>
-        <div className="flex-grow">
-          <p className="text-gray-800 font-semibold">{title}</p>
-          <p className="text-gray-500 text-sm">1200+ practices</p>
-        </div>
-        <ArrowRightIcon></ArrowRightIcon>
-      </div>
-    );
-  }
+// function PopularSection() {
+//   function PopularCourses({ title, icon }: PopularProps) {
+//     return (
+//       <div className="flex items-center gap-4 bg-white p-3 rounded-lg shadow-sm">
+//         <div className="text-[var(--primary-color)] flex items-center justify-center rounded-lg bg-blue-100 shrink-0 size-12">
+//           {icon}
+//         </div>
+//         <div className="flex-grow">
+//           <p className="text-gray-800 font-semibold">{title}</p>
+//           <p className="text-gray-500 text-sm">1200+ practices</p>
+//         </div>
+//         <ArrowRightIcon></ArrowRightIcon>
+//       </div>
+//     );
+//   }
 
-  return (
-    <section>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-900">Popular Topics</h2>
-        <a className="text-sm font-semibold text-sky-500" href="#">
-          See All
-        </a>
-      </div>
-      <div className="space-y-3">
-        {popCourses.map((popCourse) => (
-          <PopularCourses
-            key={popCourse.id}
-            title={popCourse.courseName}
-            icon={popCourse.icons}
-          ></PopularCourses>
-        ))}
-      </div>
-    </section>
-  );
-}
+//   return (
+//     <section>
+//       <div className="flex justify-between items-center mb-4">
+//         <h2 className="text-xl font-bold text-gray-900">Popular Topics</h2>
+//         <a className="text-sm font-semibold text-sky-500" href="#">
+//           See All
+//         </a>
+//       </div>
+//       <div className="space-y-3">
+//         {popCourses.map((popCourse) => (
+//           <PopularCourses
+//             key={popCourse.id}
+//             title={popCourse.courseName}
+//             icon={popCourse.icons}
+//           ></PopularCourses>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
 
 function DailySection() {
   return (
@@ -323,8 +327,8 @@ export default function HomeMain() {
   return (
     <main className="p-4 space-y-8">
       <CoursesSection />
-      <RecentSection />
-      <PopularSection />
+      {/* <RecentSection /> */}
+      {/* <PopularSection /> */}
       <DailySection />
       <ProgressSection />
     </main>
