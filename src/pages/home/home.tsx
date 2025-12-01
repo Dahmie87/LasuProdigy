@@ -1,8 +1,14 @@
 import HomeMain from "./content";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import gns from "../../assets/images/man.png";
+
+interface User {
+  first_name: string;
+  last_name: string;
+  username: string;
+}
 
 function LogOutAlert() {
   return (
@@ -20,16 +26,16 @@ function HomeHeader() {
   if (isAuthenticated) {
     MENU_LINKS = [
       { id: 1, value: "Profile", url: "/student/Profile" },
-      { id: 2, value: "Verification", url: "/courses" },
+      { id: 2, value: "Verification", url: "/student/verification" },
       { id: 3, value: "Courses", url: "/courses" },
-      { id: 3, value: "History", url: "/courses" },
-      { id: 4, value: "Leaderboard", url: "/courses" },
-      { id: 5, value: "About", url: "/About" },
+      { id: 4, value: "History", url: "/courses" },
+      { id: 5, value: "Leaderboard", url: "/courses" },
+      { id: 6, value: "About", url: "/About" },
     ];
   } else {
     MENU_LINKS = [
       { id: 1, value: "Login", url: "/student/login" },
-      { id: 2, value: "Courses", url: "/courses" },
+
       { id: 4, value: "About", url: "/About" },
     ];
   }
@@ -45,6 +51,23 @@ function HomeHeader() {
       setlogAlert(false);
     }, 1500);
   }
+  const [data, setData] = useState<User | null>(null);
+
+  async function getProfile() {
+    const AccessToken = localStorage.getItem("access");
+    const Response = await fetch("http://127.0.0.1:8000/accounts/profile/", {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+
+    const userdata = await Response.json();
+    console.log(userdata);
+    setData(userdata);
+  }
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <header className="bg-white sticky top-0 z-10 shadow-sm">
@@ -85,9 +108,9 @@ function HomeHeader() {
 
                   <div className="mt-3 text-center">
                     <h2 className="text-lg font-semibold text-gray-800">
-                      Omotayo Damilare
+                      {data?.last_name} {data?.first_name}
                     </h2>
-                    <p className="text-sm text-gray-500">@Dahmie</p>
+                    <p className="text-sm text-gray-500">{data?.username}</p>
                   </div>
 
                   {/* Verification Status */}

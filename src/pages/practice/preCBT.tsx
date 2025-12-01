@@ -129,9 +129,8 @@ export default function PreCBTpage() {
                 </label>
                 <div className="flex items-center justify-between mt-1">
                   <select
-                    className=" font-semibold text-foreground-light dark:text-foreground-dark w-full"
+                    className="h-8 font-semibold text-foreground-light dark:text-foreground-dark w-full focus:outline-sky-500"
                     onChange={handleChange}
-                    value={"jjsdk"}
                   >
                     <option value="none">-- none --</option>
                     <option value="CHM101">CHM 101 atoms</option>

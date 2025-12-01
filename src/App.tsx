@@ -22,6 +22,7 @@ import { ProfilePage } from "./pages/home/menu/Profile";
 import { RegisterPage } from "./pages/home/menu/Register";
 import { PreLogin } from "./components/NotLogin";
 import { EditProfile } from "./pages/home/menu/Edit";
+import { VerificationPage } from "./pages/home/menu/verify";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -200,6 +201,14 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 19,
+    pageName: "edit profile page",
+    url: "/student/verification",
+    page: <VerificationPage />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -241,17 +250,14 @@ function AppLayout() {
     "/CBTresults",
     "/About",
     "/courses",
-    "/student/login",
-    "/student/Profile",
-    "/student/Profile/edit",
-    "/student/sign-up",
     "/user/not-logged-in",
     "/courses/info",
   ];
   const shouldHIdeFooterBool =
     HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||
     LOCATION.pathname.startsWith("/CBT-test/") ||
-    LOCATION.pathname.startsWith("/preCbt/");
+    LOCATION.pathname.startsWith("/preCbt/") ||
+    LOCATION.pathname.startsWith("/student");
   return (
     <div
       className="bg-gray-50 relative flex h-auto min-h-screen w-full flex-col justify-between group/design-root"
