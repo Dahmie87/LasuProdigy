@@ -37,7 +37,7 @@ const CBTModeCard = () => (
 );
 
 const ModeCard = ({ icon, title, description, buttonText }: ModeCardArgs) => (
-  <div className="bg-white  rounded-xl p-6 shadow-md flex items-center space-x-4">
+  <div className="bg-white  rounded-xl p-6 shadow-md flex items-center space-x-4 mt-3">
     <div className="bg-primary/10 p-3 rounded-full">
       {icon === "timer" ? (
         <svg
