@@ -23,6 +23,7 @@ import { RegisterPage } from "./pages/home/menu/Register";
 import { PreLogin } from "./components/NotLogin";
 import { EditProfile } from "./pages/home/menu/Edit";
 import { VerificationPage } from "./pages/home/menu/verify";
+import LeaderboardPage from "./pages/home/menu/leaderboard";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -84,7 +85,7 @@ const NAVIGATION_ARRAY = [
   {
     id: 3,
     pageName: "PreCbt",
-    url: "/preCbt/:type",
+    url: "/preCbt/:type/course/:coursecode/title/:coursetitle",
     page: <PreCBTpage />,
     icon: "",
     icon2: "",
@@ -206,6 +207,14 @@ const NAVIGATION_ARRAY = [
     pageName: "edit profile page",
     url: "/student/verification",
     page: <VerificationPage />,
+    icon: "",
+    icon2: "",
+  },
+  {
+    id: 20,
+    pageName: "leader board page",
+    url: "/student/leaderboard",
+    page: <LeaderboardPage />,
     icon: "",
     icon2: "",
   },

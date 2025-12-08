@@ -1,8 +1,51 @@
 import man from "../../../assets/images/man.png";
+import { useState } from "react";
 import { ArrowBack } from "../../../assets/icons/arrowBack";
 import { ArrowDown } from "../../../assets/icons/arrowDown";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 export function EditProfile() {
+  const EditLocation = useLocation();
+  const EditData = EditLocation.state?.ProfileData;
+  console.log(EditData);
+
+  const [Major, SetMajor] = useState(EditData.department);
+  const [Faculty, SetFaculty] = useState(EditData.faculty);
+  const [phone, setPhone] = useState(EditData.phone_number);
+  const [level, setLevel] = useState(EditData.level);
+
+  const PATCH_DATA = {
+    department: Major,
+    phone_number: phone,
+    level: level,
+    faculty: Faculty,
+  };
+
+  const token = localStorage.getItem("access");
+  const PATCH_URL = "http://127.0.0.1:8000/accounts/user/update-profile/";
+  const EditNavigate = useNavigate();
+
+  function UpdateProfile() {
+    fetch(PATCH_URL, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(PATCH_DATA),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          console.log(res.status);
+        }
+        return res.json();
+      })
+      .then((data) => console.log(data, "your profile as being updated"))
+      .catch((err) => {
+        console.log(err);
+      });
+    EditNavigate("/student/Profile");
+  }
+  const fullName = `${EditData.first_name} ${EditData.last_name}`;
   return (
     <div className="bg-background-light  font-display">
       <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-light  group/design-root overflow-x-hidden">
@@ -17,11 +60,14 @@ export function EditProfile() {
           <h2 className="flex-1 text-center text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900 ">
             Edit Public Profile
           </h2>
-          <div className="flex w-12 items-center justify-end">
+          <button
+            onClick={UpdateProfile}
+            className="flex w-12 items-center justify-end"
+          >
             <p className="shrink-0 text-base font-bold leading-normal tracking-[0.015em] text-sky-500">
               Save
             </p>
-          </div>
+          </button>
         </div>
         <main className="flex flex-1 flex-col px-4">
           {/* <!-- Profile Header --> */}
@@ -50,6 +96,8 @@ export function EditProfile() {
               <input
                 className="form-input h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-white p-[15px] text-base font-normal leading-normal text-gray-900 placeholder:text-gray-400 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50 "
                 placeholder="Enter your full name"
+                defaultValue={fullName}
+                readOnly={true}
               />
             </label>
             {/* <!-- Pronouns TextField --> */}
@@ -72,8 +120,12 @@ export function EditProfile() {
                 Faculty
               </p>
               <div className="relative">
-                <select className="form-select h-14 w-full appearance-none rounded-lg border border-gray-300 bg-white p-[15px] pr-10 text-base font-normal leading-normal text-gray-900 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50">
-                  <option selected={true}>Faculty of Computing</option>
+                <select
+                  value={Faculty}
+                  onChange={(e) => SetFaculty(e.target.value)}
+                  className="form-select h-14 w-full appearance-none rounded-lg border border-gray-300 bg-white p-[15px] pr-10 text-base font-normal leading-normal text-gray-900 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50"
+                >
+                  <option>Faculty of Computing</option>
                   <option>Facutly of Science</option>
                   <option>Facutly of Education</option>
                   <option>Faculty of Arts</option>
@@ -96,6 +148,8 @@ export function EditProfile() {
               <input
                 className="form-input h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-white p-[15px] text-base font-normal leading-normal text-gray-900 placeholder:text-gray-400 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50"
                 placeholder="e.g., Computer Science"
+                value={Major}
+                onChange={(e) => SetMajor(e.target.value)}
               />
             </label>
             {/* <!-- Graduation Year Field --> */}
@@ -104,8 +158,12 @@ export function EditProfile() {
                 Year
               </p>
               <div className="relative">
-                <select className="form-select h-14 w-full appearance-none rounded-lg border border-gray-300 bg-white p-[15px] pr-10 text-base font-normal leading-normal text-gray-900 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50">
-                  <option selected={true}>100</option>
+                <select
+                  value={level}
+                  onChange={(e) => setLevel(e.target.value)}
+                  className="form-select h-14 w-full appearance-none rounded-lg border border-gray-300 bg-white p-[15px] pr-10 text-base font-normal leading-normal text-gray-900 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50"
+                >
+                  <option>100</option>
                   <option>200</option>
                   <option>300</option>
                   <option>400</option>
@@ -122,6 +180,8 @@ export function EditProfile() {
               <input
                 className="form-input h-14 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-white p-[15px] text-base font-normal leading-normal text-gray-900 placeholder:text-gray-400 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50 "
                 placeholder="080 XXX XXXX"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </label>
             {/* <!-- Bio TextArea --> */}
@@ -132,7 +192,8 @@ export function EditProfile() {
                 </p>
                 <p className="text-sm text-gray-500">120/150</p>
               </div>
-              <textarea
+              <div className="w-full bg-gray-300/90 py-25"></div>
+              {/* <textarea
                 className="form-textarea w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-white p-[15px] text-base font-normal leading-normal text-gray-900 placeholder:text-gray-400 focus:border-sky-500 focus:outline-0 focus:ring-2 focus:ring-sky-500/50"
                 placeholder="Tell us a little about yourself"
                 rows={4}
@@ -140,13 +201,48 @@ export function EditProfile() {
                 Passionate about leveraging data to solve real-world problems.
                 Currently exploring machine learning and its applications in
                 biotech.
-              </textarea>
+              </textarea> */}
             </label>
             {/* <!-- Social Links Section --> */}
           </div>
-          <div className="h-10"></div>
+          <div className="py-5 text-center text-sm font-bold">
+            Unlimited account customization available for verified users{"  "}
+            <Link to={"/"} className="text-sky-500">
+              Learn more
+            </Link>
+          </div>
         </main>
       </div>
     </div>
   );
 }
+/*const token = localStorage.getItem("access"); // your auth token
+const url = ; // endpoint to PATCH
+
+// Suppose formData is your state holding updated fields
+const formData = {
+  level: "200",
+  firstName: "John",
+  lastName: "Doe",
+  email: "newemail@example.com",
+};
+
+fetch(url, {
+  method: "PATCH",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify(formData), // send only fields you want to update
+})
+  .then((res) => {
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res.json();
+  })
+  .then((data) => {
+    console.log("Profile updated:", data);
+  })
+  .catch((err) => {
+    console.error("Failed to update profile:", err);
+  });
+ */

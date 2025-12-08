@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function CoursesPage() {
-  type course = {
+  type Course = {
     id: number;
     code: string;
     description: string;
@@ -10,7 +10,7 @@ export default function CoursesPage() {
     title: string;
   };
   const token = localStorage.getItem("access");
-  const [course, setCourse] = useState<course[]>([]);
+  const [course, setCourse] = useState<Course[]>([]);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/courses/", {
@@ -26,9 +26,9 @@ export default function CoursesPage() {
   }, []);
 
   const courseNavigate = useNavigate();
-  function coursePagePortal(course: course) {
-    courseNavigate("info", { state: course.title });
-    console.log(course.title);
+  function coursePagePortal(c: Course) {
+    courseNavigate("/courses/info", { state: c });
+    console.log(c);
   }
   return (
     <div className="font-display bg-background-light ">

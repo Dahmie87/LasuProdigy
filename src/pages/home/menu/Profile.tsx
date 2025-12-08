@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileMan from "../../../assets/images/man.png";
 import { ProdigyLogo } from "../Login";
 import { Refresh } from "../Login";
@@ -40,7 +40,16 @@ function SubHeading1() {
     </div>
   );
 }
-function SubHeading2() {
+
+type SubProps = {
+  usr: User | null;
+};
+function SubHeading2({ usr }: SubProps) {
+  const SubNavigate = useNavigate();
+  const handleEdit = () => {
+    SubNavigate("/student/Profile/edit", { state: { ProfileData: usr } });
+  };
+
   return (
     <div className="flex flex-wrap justify-between gap-4 items-center mb-8">
       <p className="text-slate-900  text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">
@@ -50,12 +59,14 @@ function SubHeading2() {
         <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-slate-700  border border-slate-300  text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-100  transition-colors">
           <span className="truncate">View Public Profile</span>
         </button>
-        <Link to={"edit"}>
-          <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-sky-500 text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-sky-500/90 transition-colors">
-            <EditIcon />
-            <span className="truncate">Edit Profile</span>
-          </button>
-        </Link>
+
+        <button
+          onClick={handleEdit}
+          className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-sky-500 text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2 hover:bg-sky-500/90 transition-colors"
+        >
+          <EditIcon />
+          <span className="truncate">Edit Profile</span>
+        </button>
       </div>
     </div>
   );
@@ -198,7 +209,7 @@ export function ProfilePage() {
           <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
             <div className="mx-auto max-w-5xl">
               <SubHeading1 />
-              <SubHeading2 />
+              <SubHeading2 usr={data} />
               <div className="grid  grid-cols-1 lg:grid-cols-3 gap-8">
                 <ProfileAside user={data} />
                 <ProfileSection user={data} />

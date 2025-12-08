@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function PreCbtHeader() {
@@ -113,7 +113,15 @@ export default function PreCBTpage() {
   const isAuthenticated = localStorage.getItem("access");
 
   console.log(courseselected);
-  const { type } = useParams();
+  const { type, coursecode, coursetitle } = useParams();
+
+  coursecode?.replace(/\s+/g, "");
+
+  useEffect(() => {
+    if (coursecode !== "all") {
+      setCourseSelected(coursecode ?? "none");
+    }
+  }, [coursecode]);
   const CBT_LINK = type == "CBT" ? "CBTtest" : "qtest";
   return (
     <div className="bg-background-light dark:bg-background-dark font-display">
@@ -123,23 +131,35 @@ export default function PreCBTpage() {
           <div className="space-y-8">
             <PreCBTSubHeading />
             <div className="space-y-4">
-              <div className="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm">
-                <label className="text-sm font-medium text-muted-light dark:text-muted-dark">
-                  Course
-                </label>
-                <div className="flex items-center justify-between mt-1">
-                  <select
-                    className="h-8 font-semibold text-foreground-light dark:text-foreground-dark w-full focus:outline-sky-500"
-                    onChange={handleChange}
-                  >
-                    <option value="none">-- none --</option>
-                    <option value="CHM101">CHM 101 atoms</option>
-                    <option value="MAT101">Math 101 algebra</option>
-                    <option value="PHY101">Physics 101 Mechanics</option>
-                    <option value="CSC101">Computer Science 101</option>
-                  </select>
+              {coursecode !== "all" ? (
+                <div className="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm">
+                  <label className="text-sm font-medium text-muted-light dark:text-muted-dark">
+                    Course
+                  </label>
+                  <p className="text-base font-semibold text-foreground-light dark:text-foreground-dark mt-1">
+                    {coursetitle}
+                  </p>
                 </div>
-              </div>
+              ) : (
+                <div className="bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-sm">
+                  <label className="text-sm font-medium text-muted-light dark:text-muted-dark">
+                    Course
+                  </label>
+                  <div className="flex items-center justify-between mt-1">
+                    <select
+                      className="h-8 font-semibold text-foreground-light dark:text-foreground-dark w-full focus:outline-sky-500"
+                      onChange={handleChange}
+                    >
+                      <option value="none">-- none --</option>
+                      <option value="CHM101">CHM 101 atoms</option>
+                      <option value="MAT101">Math 101 algebra</option>
+                      <option value="PHY101">Physics 101 Mechanics</option>
+                      <option value="CSC101">Computer Science 101</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
               <PreCbtCard />
             </div>
           </div>

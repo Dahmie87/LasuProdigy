@@ -4,6 +4,7 @@ import algebra from "../../assets/images/algebra.png";
 import gns from "../../assets/images/gns.jpg";
 import mat from "../../assets/images/mat.png";
 import phy from "../../assets/images/phy.jpg";
+
 // import ProgressChart from "../../components/chart";
 type MyCoursesProps = {
   name: string;
@@ -15,16 +16,18 @@ type MyCoursesProps = {
 // };
 
 const userCourses = [
-  { id: 1, courseName: "MAT 101", courseImage: mat },
+  { id: 1, courseName: "MAT 101", courseImage: mat, link: "/courses" },
   {
     id: 2,
     courseName: "PHY 101",
     courseImage: phy,
+    link: "/courses",
   },
   {
     id: 3,
     courseName: "GNS 101",
     courseImage: gns,
+    link: "/courses",
   },
 ];
 
@@ -59,11 +62,13 @@ function CoursesSection() {
         {" "}
         <div className="flex items-stretch gap-4">
           {userCourses.map((courses) => (
-            <MyCourses
-              key={courses.id}
-              name={courses.courseName}
-              image={courses.courseImage}
-            ></MyCourses>
+            <Link to={courses.link}>
+              <MyCourses
+                key={courses.id}
+                name={courses.courseName}
+                image={courses.courseImage}
+              ></MyCourses>
+            </Link>
           ))}
         </div>
       </div>

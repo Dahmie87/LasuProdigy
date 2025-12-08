@@ -2,9 +2,16 @@ import { ArrowBack } from "../../assets/icons/arrowBack";
 import { ArrowDown } from "../../assets/icons/arrowDown";
 import { Link, useLocation } from "react-router-dom";
 import man from "../../assets/images/man.png";
+type Course = {
+  id: number;
+  code: string;
+  description: string;
+  outline: string;
+  title: string;
+};
 export function CourseInfoPage() {
   const courseLOCATION = useLocation();
-  const { course } = courseLOCATION.state;
+  const course = courseLOCATION.state as Course;
   console.log(course);
   return (
     <div className="">
@@ -20,7 +27,7 @@ export function CourseInfoPage() {
             </Link>
           </div>
           <h2 className="flex-1 text-center text-lg font-bold leading-tight tracking-[-0.015em] text-black">
-            CSC 101
+            {course.code}
           </h2>
           <div className="w-12"></div>{" "}
           {/*<!-- Spacer to balance the title -->*/}
@@ -30,10 +37,10 @@ export function CourseInfoPage() {
           <div className="shadow-sm flex flex-col gap-4 rounded-xl bg-white p-4">
             <div className="flex flex-col gap-1">
               <p className="text-xl font-bold leading-tight text-black">
-                Introduction to Computer Science
+                {course.title}
               </p>
               <p className="text-sm font-normal leading-normal text-black/60">
-                CSC101 - 100l First Semester
+                {course.code} - 100l First Semester
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -88,11 +95,7 @@ export function CourseInfoPage() {
                 </div>
               </summary>
               <p className="pb-3 text-sm font-normal leading-relaxed text-black/60">
-                This course provides a comprehensive introduction to the
-                fundamental concepts of computer science. Students will learn
-                about algorithms, data structures, and the principles of
-                programming. The course is designed to build a strong foundation
-                for further studies in the field.
+                {course.description}
               </p>
             </details>
             <details className="flex flex-col rounded-xl bg-white px-4 group shadow-sm">
@@ -199,7 +202,7 @@ export function CourseInfoPage() {
             </div>
           </div>
         </div>
-        <Link to={"/practice"}>
+        <Link to={`/preCbt/CBT/course/${course.code}/title/${course.title}`}>
           <footer className="sticky bottom-0 p-4 bg-background-light border-gray-200 dark:border-gray-700">
             <button className="w-full h-12 px-5 bg-sky-500 text-white font-bold rounded-lg hover:bg-sky-500/90 transition-colors duration-300">
               Start Test

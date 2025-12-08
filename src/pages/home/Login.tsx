@@ -53,6 +53,8 @@ export async function Refresh() {
   return data.access;
 }
 export function LoginPage() {
+  // const [errors, setErrors] = useState();
+
   const LoginNavigate = useNavigate();
   async function login() {
     const response = await fetch("http://127.0.0.1:8000/accounts/token/", {
@@ -68,6 +70,7 @@ export function LoginPage() {
       console.log("login succesfull");
       LoginNavigate("/home");
     } else {
+      // setErrors(response);
       console.log(response);
     }
   }
@@ -99,10 +102,15 @@ export function LoginPage() {
                       Log in to continue your learning journey.
                     </p>
                   </div>
+                  {/* {errors && (
+                    <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
+                      {errors[0]}
+                    </div>
+                  )} */}
                   <div className="flex flex-col gap-6">
                     <label className="flex flex-col w-full">
                       <p className="text-[#111318]  text-base font-medium leading-normal pb-2">
-                        Email or Username
+                        Username
                       </p>
                       <input
                         className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318]  focus:outline-0 focus:ring-2 focus:ring-sky-500/50 border border-[#dbdfe6] bg-white  focus:border-sky-500 h-14 placeholder:text-[#616f89]  p-[15px] text-base font-normal leading-normal"
