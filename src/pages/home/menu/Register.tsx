@@ -7,6 +7,7 @@ interface RegisterInputsProps {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   setFirst: React.Dispatch<React.SetStateAction<string>>;
   setLast: React.Dispatch<React.SetStateAction<string>>;
+  setUserN: React.Dispatch<React.SetStateAction<string>>;
   setPass: React.Dispatch<React.SetStateAction<string>>;
 }
 function RegisterInputs({
@@ -14,11 +15,12 @@ function RegisterInputs({
   setFirst,
   setLast,
   setPass,
+  setUserN,
 }: RegisterInputsProps) {
   const InputFields = [
     {
       id: 1,
-      value: "First Name",
+      value: "First name",
       placeholder: "Enter first Name",
       setter: setFirst,
     },
@@ -27,6 +29,12 @@ function RegisterInputs({
       value: "Last Name",
       placeholder: "Enter last name",
       setter: setLast,
+    },
+    {
+      id: 5,
+      value: "Username",
+      placeholder: "Enter  your preferred username",
+      setter: setUserN,
     },
     {
       id: 3,
@@ -88,32 +96,46 @@ function RegisterInputs({
 export function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
 
   const userData = {
-    username: firstName,
+    username: userName,
     password1: userPassword,
     first_name: firstName,
     last_name: lastName,
     email: userEmail,
     password2: userPassword,
+    department: "",
+    faculty: "",
+    gender: "",
+    level: "",
   };
   const RegisterNavigate = useNavigate();
   async function RegisterUser() {
-    const Response = await fetch("http://127.0.0.1:8000/accounts/register/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    });
-    const data = await Response.json();
+    try {
+      const Response = await fetch("http://127.0.0.1:8000/accounts/register/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+      const data = await Response.json();
 
-    console.log(data);
-    if (Response.ok) {
-      RegisterNavigate("/home");
+      console.log(data);
+      if (Response.ok) {
+        RegisterNavigate("/home");
+      } else {
+        setErrors(data);
+      }
+    } catch {
+      console.error("network error, bobo use better sim");
+      setErrors({ nofieldErr: ["Network Error, bobo try use better sim"] });
     }
   }
+
   let buttonDisable = false;
   let confirmClass =
     "form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318] focus:outline-0 focus:ring-2 focus:ring-sky-500/50 border border-[#dbdfe6] bg-white h-14 placeholder:text-[#616f89] p-[15px] text-base font-normal leading-normal";
@@ -143,15 +165,26 @@ export function RegisterPage() {
                   Create an Account
                 </p>
                 <p className="text-[#616f89] text-base font-normal leading-normal">
-                  Join our community and start organizing your studies.
+                  Join Prodigy now to get access to numerous student resources
                 </p>
               </div>
               <div className="flex w-full flex-col gap-4 py-3">
+                {errors.username && (
+                  <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
+                    {errors.username[0]}
+                  </div>
+                )}
+                {errors.password1 && (
+                  <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
+                    {errors.password1[0]}
+                  </div>
+                )}
                 <RegisterInputs
                   setFirst={setFirstName}
                   setLast={setLastName}
                   setEmail={setUserEmail}
                   setPass={setUserPassword}
+                  setUserN={setUserName}
                 />
                 <label className="flex flex-col flex-1">
                   <p className="text-[#111318] text-base font-medium leading-normal pb-2">
@@ -176,7 +209,7 @@ export function RegisterPage() {
                 <button
                   disabled={buttonDisable}
                   onClick={RegisterUser}
-                  className="flex items-center justify-center whitespace-nowrap h-12 px-5 rounded-lg bg-sky-500 text-white text-base font-semibold leading-normal hover:bg-sky-500/90 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                  className="flex items-center justify-center disabled:bg-gray-200 whitespace-nowrap h-12 px-5 rounded-lg bg-sky-500 text-white text-base font-semibold leading-normal hover:bg-sky-500/90 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
                 >
                   Sign Up
                 </button>

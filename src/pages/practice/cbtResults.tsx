@@ -209,8 +209,11 @@ export default function CBTResultsPage() {
             </section>
             <section className="grid grid-cols-2 gap-4">
               {" "}
-              <button className="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-primary/10 p-4 text-center">
-                <Link to={"/practice"}>
+              <Link
+                to={"/practice"}
+                className="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-primary/10 p-4 text-center"
+              >
+                <button>
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-500/10 text-primary">
                     <svg
                       className="h-6 w-6"
@@ -225,11 +228,11 @@ export default function CBTResultsPage() {
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
                     </svg>
                   </div>
-                  <span className="font-semibold text-gray-900 ">
+                  <span className="font-semibold text-gray-900">
                     Go to Practice
                   </span>
-                </Link>
-              </button>
+                </button>
+              </Link>
               <button
                 onClick={() =>
                   ResultNavigate("/Review", {

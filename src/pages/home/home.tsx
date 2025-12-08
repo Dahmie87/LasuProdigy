@@ -29,7 +29,7 @@ function HomeHeader() {
       { id: 2, value: "Verification", url: "/student/verification" },
       { id: 3, value: "Courses", url: "/courses" },
       { id: 4, value: "History", url: "/courses" },
-      { id: 5, value: "Leaderboard", url: "/courses" },
+      { id: 5, value: "Leaderboard", url: "/student/leaderboard" },
       { id: 6, value: "About", url: "/About" },
     ];
   } else {
@@ -98,24 +98,26 @@ function HomeHeader() {
                 ✕
               </button>
               {isAuthenticated && (
-                <div className="flex flex-col items-center p-4 bg-white shadow rounded-2xl">
-                  {/* Profile Picture */}
-                  <img
-                    src={gns}
-                    alt="Profile"
-                    className="w-24 h-24 rounded-full object-cover"
-                  />
+                <Link to={"/student/Profile"}>
+                  <div className="flex flex-col items-center p-4 bg-white shadow rounded-2xl">
+                    {/* Profile Picture */}
+                    <img
+                      src={gns}
+                      alt="Profile"
+                      className="w-24 h-24 rounded-full object-cover"
+                    />
 
-                  <div className="mt-3 text-center">
-                    <h2 className="text-lg font-semibold text-gray-800">
-                      {data?.last_name} {data?.first_name}
-                    </h2>
-                    <p className="text-sm text-gray-500">{data?.username}</p>
+                    <div className="mt-3 text-center">
+                      <h2 className="text-lg font-semibold text-gray-800">
+                        {data?.last_name} {data?.first_name}
+                      </h2>
+                      <p className="text-sm text-gray-500">{data?.username}</p>
+                    </div>
+
+                    {/* Verification Status */}
+                    <p className="mt-2 text-xs text-red-500">Not verified</p>
                   </div>
-
-                  {/* Verification Status */}
-                  <p className="mt-2 text-xs text-red-500">Not verified</p>
-                </div>
+                </Link>
               )}{" "}
               <ul className="space-y-2 mt-10">
                 {MENU_LINKS.map((eachLINK) => (

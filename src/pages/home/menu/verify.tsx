@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { Check, CheckGray } from "../../../assets/icons/check";
 function FreePriceCard() {
   const FreeFeaturesARR = [
-    { id: 1, feature: "Access to CBT Mode" },
+    { id: 1, feature: "Standard access to CBT Mode" },
     { id: 2, feature: "Access to Quick test Mode" },
-    { id: 3, feature: "Standard" },
+    { id: 3, feature: "Standard Test Review" },
   ];
 
   return (
@@ -30,7 +30,7 @@ function FreePriceCard() {
           <span className="material-symbols-outlined text-slate-400 ">
             cancel
           </span>
-          Offline mode
+          Custom mode
         </div>
         <div className="text-[13px] font-normal leading-normal flex gap-3 text-slate-400  items-center line-through">
           <span className="material-symbols-outlined text-slate-400 ">
@@ -44,10 +44,12 @@ function FreePriceCard() {
 }
 function SpecialFeaturesCard() {
   const SpecialARR = [
-    { id: 1, feature: "Unlimited" },
-    { id: 1, feature: "Unlimited" },
-    { id: 1, feature: "Unlimited" },
-    { id: 1, feature: "Unlimited" },
+    { id: 1, feature: "Unlimited CBT Mode " },
+    { id: 2, feature: "Custom Mode" },
+    { id: 4, feature: "Access to all Course Materials" },
+    { id: 5, feature: "Access to all 1000+ questions" },
+    { id: 6, feature: "Advanced Test Review with AI" },
+    { id: 7, feature: "Full Account Customization" },
   ];
   return (
     <div className="flex flex-1 flex-col gap-4 rounded-xl border-2 border-solid border-sky-500 bg-sky-500/5  p-6 shadow-sm relative overflow-hidden">
@@ -158,10 +160,11 @@ export function VerificationPage() {
               </div>
               <div className="pt-1">
                 <h4 className="font-bold text-sm text-slate-800 ">
-                  Secure Payment
+                  Prodigy Premiium is free for Lasuites
                 </h4>
                 <p className="text-sm text-slate-500  mt-0.5">
-                  Complete your purchase through our secure payment gateway.
+                  Verify your status as a LASU Student and get verified
+                  instantly
                 </p>
               </div>
             </div>

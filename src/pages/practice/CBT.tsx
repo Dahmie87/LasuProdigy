@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import man from "../../assets/images/man.png";
+interface User {
+  first_name: string;
+  last_name: string;
+  username: string;
+}
 
 function CBTHeader({ timer }: { timer: string }) {
   const test = useParams();
@@ -77,7 +83,19 @@ function OptionsSection(props: {
 export default function CBTpage() {
   const params = useParams();
   const testSecoods = params.testtype == "qtest" ? 600 : 1200;
-  const [timerSeconds, setTimerSeconds] = useState(testSecoods);
+  const [timerSeconds, setTimerSeconds] = useState(() => {
+    const savedStart = localStorage.getItem("cbtExamStart");
+    if (!savedStart) return testSecoods;
+
+    const elapsed = Math.floor((Date.now() - Number(savedStart)) / 1000);
+    return Math.max(testSecoods - elapsed, 0);
+  });
+  // Save exam start time once
+  useEffect(() => {
+    if (!localStorage.getItem("cbtExamStart")) {
+      localStorage.setItem("cbtExamStart", Date.now().toString());
+    }
+  }, []);
 
   const [timeModal, setTimeModal] = useState(false);
 
@@ -103,22 +121,33 @@ export default function CBTpage() {
   useEffect(() => {
     if (timerSeconds <= 0) {
       setTimeModal(true);
+      return;
     }
+
     const interval = setInterval(() => {
-      setTimerSeconds((prev) => (prev > 0 ? prev - 1 : 0));
+      const start = Number(localStorage.getItem("cbtExamStart"));
+      const elapsed = Math.floor((Date.now() - start) / 1000);
+      const remaining = Math.max(testSecoods - elapsed, 0);
+
+      setTimerSeconds(remaining);
     }, 1000);
+
     return () => clearInterval(interval);
-  }, [timerSeconds]);
+  }, [testSecoods]);
 
   const [Modal, setModal] = useState(false);
 
-  const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<any[]>(() => {
+    const ANSWERS_STORED = localStorage.getItem("cbtAnswers");
+    return ANSWERS_STORED ? JSON.parse(ANSWERS_STORED) : [];
+  });
 
   const handleOptionChange = (questionIndex: any, value: any) => {
     const updated = [...selectedOptions];
     updated[questionIndex] = value;
     setSelectedOptions(updated);
     console.log(updated);
+    localStorage.setItem("cbtAnswers", JSON.stringify(updated));
   };
   type Option = { option_text: string; is_correct: boolean };
   type Question = { question_text: string; options: Option[] };
@@ -127,6 +156,14 @@ export default function CBTpage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   useEffect(() => {
+    const QUESTIONS_STORED = localStorage.getItem("cbtQuestions");
+
+    if (QUESTIONS_STORED) {
+      const data = JSON.parse(QUESTIONS_STORED);
+
+      setQuestions(data);
+      return;
+    }
     const MY_QUESTIONS_API_URL = `http://localhost:8000/api/courses/${urlId}/`;
     const AccessToken = localStorage.getItem("access");
     console.log(AccessToken);
@@ -146,6 +183,7 @@ export default function CBTpage() {
             ? shuffled.slice(0, 15)
             : shuffled.slice(0, 30);
         setQuestions(limited);
+        localStorage.setItem("cbtQuestions", JSON.stringify(limited));
       });
   }, []);
   console.log(params.testtype);
@@ -168,6 +206,9 @@ export default function CBTpage() {
   const cbtNavigate = useNavigate();
 
   function handleConfirm() {
+    localStorage.removeItem("cbtQuestions");
+    localStorage.removeItem("cbtAnswers");
+    localStorage.removeItem("cbtExamStart");
     const total = submitAnswers();
     const encoded = btoa(total.toString());
 
@@ -180,16 +221,46 @@ export default function CBTpage() {
       state: { answers: answeredOptions, timerSeconds },
     });
   }
+
+  const [data, setData] = useState<User | null>(null);
+
+  async function getProfile() {
+    const AccessToken = localStorage.getItem("access");
+    const Response = await fetch("http://127.0.0.1:8000/accounts/profile/", {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+
+    const userdata = await Response.json();
+    console.log(userdata);
+    setData(userdata);
+  }
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <div className="flex flex-col h-screen">
       <CBTHeader timer={formatTime(timerSeconds)} />
 
       <div className="flex flex-1 flex-col md:flex-row overflow-hidden">
         {params.testtype !== "qtest" && (
-          <aside className="w-full md:w-64 order-2 md:order-1 border-red-900 flex flex-col p-4 overflow-y-auto">
+          <aside className="hidden md:flex w-full md:w-64 order-2 md:order-1 border-red-900 flex-col p-4 overflow-y-auto">
             {/* Random things i will add later*/}
-            <div className="mb-4">
-              <p className="text-sm font-bold mb-2">OMOTAYO DAMILARE</p>
+            <div className="flex  flex-col items-center mb-4">
+              <img
+                src={man}
+                alt="Profile"
+                className="w-24 h-24 rounded-full object-cover"
+              />
+
+              <div className="mt-3 text-center">
+                <h2 className="text-lg font-semibold text-gray-800">
+                  {data?.last_name} {data?.first_name}
+                </h2>
+                <p className="text-sm text-gray-500">@{data?.username}</p>
+              </div>
             </div>
 
             {/*6 per row */}
