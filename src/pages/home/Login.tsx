@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { VisibilityOn } from "../../components/visibility";
+import { VisibilityOn, VisibilityOff } from "../../components/visibility";
 export function ProdigyLogo() {
   return (
     <svg
@@ -53,7 +53,11 @@ export async function Refresh() {
   return data.access;
 }
 export function LoginPage() {
-  // const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [toggle, setToggle] = useState(true);
+  const handleVisibilty = () => {
+    setToggle((prev) => !prev);
+  };
 
   const LoginNavigate = useNavigate();
   async function login() {
@@ -70,7 +74,7 @@ export function LoginPage() {
       console.log("login succesfull");
       LoginNavigate("/home");
     } else {
-      // setErrors(response);
+      setErrors(data);
       console.log(response);
     }
   }
@@ -102,11 +106,22 @@ export function LoginPage() {
                       Log in to continue your learning journey.
                     </p>
                   </div>
-                  {/* {errors && (
+                  {errors.datails && (
                     <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
-                      {errors[0]}
+                      {errors.details}
                     </div>
-                  )} */}
+                  )}
+                  {errors.username && (
+                    <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
+                      {errors.username}
+                    </div>
+                  )}
+                  {errors.password && (
+                    <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
+                      {"Invalid Password:  "}
+                      {errors.password}
+                    </div>
+                  )}
                   <div className="flex flex-col gap-6">
                     <label className="flex flex-col w-full">
                       <p className="text-[#111318]  text-base font-medium leading-normal pb-2">
@@ -136,14 +151,17 @@ export function LoginPage() {
                         <input
                           className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#000]  focus:outline-0 focus:ring-2 focus:ring-sky-500/50 border border-[#dbdfe6]  bg-white 0 focus:border-sky-500 h-14 placeholder:text-[#616f89]  p-[15px] rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal"
                           placeholder="Enter your password"
-                          type="password"
+                          type={toggle ? "password" : "text"}
                           value={passkey}
                           onChange={(e) => {
                             setPasskey(e.target.value);
                           }}
                         />
-                        <div className="text-[#616f89]  flex border border-[#dbdfe6]  bg-white  items-center justify-center pr-[15px] rounded-r-lg border-l-0">
-                          <VisibilityOn />
+                        <div
+                          onClick={handleVisibilty}
+                          className="text-[#616f89]  flex border border-[#dbdfe6]  bg-white  items-center justify-center pr-[15px] rounded-r-lg border-l-0"
+                        >
+                          {toggle ? <VisibilityOn /> : <VisibilityOff />}{" "}
                         </div>
                       </div>
                     </div>

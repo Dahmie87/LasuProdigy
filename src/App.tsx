@@ -5,7 +5,7 @@ import {
   NavLink,
   useLocation,
 } from "react-router-dom";
-import HomePage from "./pages/home/home";
+import { HomePage } from "./pages/home/home";
 import PracticePage from "./pages/practice/content";
 import "./App.css";
 import PreCBTpage from "./pages/practice/preCBT";
@@ -23,7 +23,9 @@ import { RegisterPage } from "./pages/home/menu/Register";
 import { PreLogin } from "./components/NotLogin";
 import { EditProfile } from "./pages/home/menu/Edit";
 import { VerificationPage } from "./pages/home/menu/verify";
+
 import LeaderboardPage from "./pages/home/menu/leaderboard";
+import { CustomPage } from "./pages/practice/CUSTOM";
 const NAVIGATION_ARRAY = [
   {
     id: 1,
@@ -218,6 +220,14 @@ const NAVIGATION_ARRAY = [
     icon: "",
     icon2: "",
   },
+  {
+    id: 21,
+    pageName: "leader board page",
+    url: "/custom/CBT",
+    page: <CustomPage />,
+    icon: "",
+    icon2: "",
+  },
 ];
 
 function NavFooter() {
@@ -261,6 +271,7 @@ function AppLayout() {
     "/courses",
     "/user/not-logged-in",
     "/courses/info",
+    "/custom/CBT",
   ];
   const shouldHIdeFooterBool =
     HIDE_PRECBT_PATHS.includes(LOCATION.pathname) ||
