@@ -115,13 +115,14 @@ export default function PreCBTpage() {
   console.log(courseselected);
   const { type, coursecode, coursetitle } = useParams();
 
-  coursecode?.replace(/\s+/g, "");
+  const courseStrip = coursecode?.replace(/\s+/g, "");
 
   useEffect(() => {
     if (coursecode !== "all") {
-      setCourseSelected(coursecode ?? "none");
+      setCourseSelected(courseStrip ?? "none");
     }
-  }, [coursecode]);
+  }, [courseStrip, coursecode]);
+  console.log(courseStrip);
   const CBT_LINK = type == "CBT" ? "CBTtest" : "qtest";
   return (
     <div className="bg-background-light dark:bg-background-dark font-display">

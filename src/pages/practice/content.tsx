@@ -89,12 +89,14 @@ export default function PracticePage() {
             buttonText="Start Quick Test"
           />
         </Link>
-        <ModeCard
-          icon="tune"
-          title="Custom Mode"
-          description="Tailor your test experience"
-          buttonText="Customize Test"
-        />
+        <Link to={"/custom/CBT"}>
+          <ModeCard
+            icon="tune"
+            title="Custom Mode"
+            description="Tailor your test experience"
+            buttonText="Customize Test"
+          />
+        </Link>
       </main>
     </div>
   );

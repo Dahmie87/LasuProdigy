@@ -25,6 +25,7 @@ function HomeHeader() {
   let MENU_LINKS;
   if (isAuthenticated) {
     MENU_LINKS = [
+      { id: 0, value: "Home", url: "/home" },
       { id: 1, value: "Profile", url: "/student/Profile" },
       { id: 2, value: "Verification", url: "/student/verification" },
       { id: 3, value: "Courses", url: "/courses" },
@@ -145,7 +146,7 @@ function HomeHeader() {
   );
 }
 
-export default function HomePage() {
+export function HomePage() {
   return (
     <>
       <HomeHeader></HomeHeader>

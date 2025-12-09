@@ -14,20 +14,25 @@ type MyCoursesProps = {
 //   title: string;
 //   icon: ReactNode;
 // };
+const token = localStorage.getItem("access");
+let IfAuthLink = "/user/not-logged-in";
+if (token) {
+  IfAuthLink = "/courses";
+}
 
 const userCourses = [
-  { id: 1, courseName: "MAT 101", courseImage: mat, link: "/courses" },
+  { id: 1, courseName: "MAT 101", courseImage: mat, link: IfAuthLink },
   {
     id: 2,
     courseName: "PHY 101",
     courseImage: phy,
-    link: "/courses",
+    link: IfAuthLink,
   },
   {
     id: 3,
     courseName: "GNS 101",
     courseImage: gns,
-    link: "/courses",
+    link: IfAuthLink,
   },
 ];
 
@@ -183,9 +188,11 @@ function ProgressSection() {
                 Sign in to access your dashboard and track your study progress.
               </p>
 
-              <button className="mt-5 bg-sky-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg">
-                Get Started
-              </button>
+              <Link to={"/student/sign-up"}>
+                <button className="mt-5 bg-sky-500 hover:bg-sky-700 text-white font-semibold py-2 px-6 rounded-lg">
+                  Get Started
+                </button>
+              </Link>
             </div>
           </div>
         )}
