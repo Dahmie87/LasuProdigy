@@ -109,9 +109,9 @@ export function LoginPage() {
                       Log in to continue your learning journey.
                     </p>
                   </div>
-                  {errors.datails && (
+                  {errors && (
                     <div className="text-center text-red-400 font-bold w-full py-3 border-2 border-red-300 bg-red-100">
-                      {errors.details}
+                      {errors.detail}
                     </div>
                   )}
                   {errors.username && (
