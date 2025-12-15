@@ -185,11 +185,14 @@ export function ProfilePage() {
   const [data, setData] = useState<User | null>(null);
   async function getProfile() {
     const AccessToken = localStorage.getItem("access");
-    const Response = await fetch("http://127.0.0.1:8000/accounts/profile/", {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    const Response = await fetch(
+      "https://prodigybackend-3d9e.onrender.com/accounts/profile/",
+      {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+      }
+    );
     if (!Response.ok) {
       Refresh();
     }

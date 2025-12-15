@@ -13,7 +13,7 @@ export default function CoursesPage() {
   const [course, setCourse] = useState<Course[]>([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/courses/", {
+    fetch("https://prodigybackend-3d9e.onrender.com/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

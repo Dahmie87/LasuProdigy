@@ -56,11 +56,14 @@ function HomeHeader() {
 
   async function getProfile() {
     const AccessToken = localStorage.getItem("access");
-    const Response = await fetch("http://127.0.0.1:8000/accounts/profile/", {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    const Response = await fetch(
+      "https://prodigybackend-3d9e.onrender.com/accounts/profile/",
+      {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+      }
+    );
 
     const userdata = await Response.json();
     console.log(userdata);

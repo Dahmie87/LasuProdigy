@@ -164,7 +164,7 @@ export default function CBTpage() {
       setQuestions(data);
       return;
     }
-    const MY_QUESTIONS_API_URL = `http://localhost:8000/api/courses/${urlId}/`;
+    const MY_QUESTIONS_API_URL = `https://prodigybackend-3d9e.onrender.com/api/courses/${urlId}/`;
     const AccessToken = localStorage.getItem("access");
     console.log(AccessToken);
 
