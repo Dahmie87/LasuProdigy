@@ -61,11 +61,14 @@ export function LoginPage() {
 
   const LoginNavigate = useNavigate();
   async function login() {
-    const response = await fetch("http://127.0.0.1:8000/accounts/token/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: email, password: passkey }),
-    });
+    const response = await fetch(
+      "https://prodigybackend-3d9e.onrender.com/accounts/token/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: email, password: passkey }),
+      }
+    );
     const data = await response.json();
     console.log("data from backend", data);
     if (response.ok) {
