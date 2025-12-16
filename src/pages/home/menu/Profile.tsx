@@ -4,6 +4,7 @@ import { ProdigyLogo } from "../Login";
 import { Refresh } from "../Login";
 import { useEffect, useState } from "react";
 import { EditIcon } from "../../../assets/icons/editIcon";
+import { Link } from "react-router-dom";
 
 export function ProfileHeader() {
   return (
@@ -25,12 +26,8 @@ export function ProfileHeader() {
 function SubHeading1() {
   return (
     <div className="flex flex-wrap gap-2 pb-4">
-      <a
-        className="text-slate-500  text-sm font-medium leading-normal hover:text-sky-500  transition-colors"
-        href="/home"
-      >
-        Home
-      </a>
+      <Link to={"/"}> Home</Link>
+
       <span className="text-slate-500  text-sm font-medium leading-normal">
         /
       </span>
