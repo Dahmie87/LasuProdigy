@@ -21,7 +21,8 @@ export function EditProfile() {
   };
 
   const token = localStorage.getItem("access");
-  const PATCH_URL = "http://127.0.0.1:8000/accounts/user/update-profile/";
+  const PATCH_URL =
+    "https://prodigybackend-3d9e.onrender.com/accounts/user/update-profile/";
   const EditNavigate = useNavigate();
 
   function UpdateProfile() {
