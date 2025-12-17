@@ -75,7 +75,7 @@ export default function CoursesPage() {
                   <h2 className="text-lg font-bold text-gray-900 ">{c.code}</h2>
                   <p className="text-sm text-gray-600 ">{c.title} |</p>
                   <p className="text-xs text-red-500  mt-1">
-                    No Pause | Timer Starts Immediately
+                    Newly added course| see more
                   </p>
                 </div>
               </div>

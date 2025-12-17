@@ -5,7 +5,10 @@ import { ArrowDown } from "../../assets/icons/arrowDown";
 import { Link } from "react-router-dom";
 import { CloseIcon } from "../../assets/icons/close";
 import { AddIcon } from "../../assets/icons/add";
+import { useState } from "react";
 export function CustomPage() {
+  const [QuestionAmount, setQuestionAmount] = useState("25");
+  const [time, setTIme] = useState("20");
   return (
     <div className="bg-background-light  font-display">
       <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -108,14 +111,18 @@ export function CustomPage() {
                   <label className="text-base font-bold text-[#0d121b] ">
                     Number of Questions
                   </label>
-                  <span className="text-base font-medium text-sky-500">25</span>
+                  <span className="text-base font-medium text-sky-500">
+                    {QuestionAmount}
+                  </span>
                 </div>
                 <input
                   className="w-full h-2 bg-gray-200  rounded-lg appearance-none cursor-pointer accent-sky-500"
                   id="questions"
                   max="50"
                   min="5"
+                  value={QuestionAmount}
                   type="range"
+                  onChange={(e) => setQuestionAmount(e.target.value)}
                   //   value="25"
                 />
               </div>
@@ -125,14 +132,18 @@ export function CustomPage() {
                   <label className="text-base font-bold text-[#0d121b] ">
                     Time Limit (minutes)
                   </label>
-                  <span className="text-base font-medium text-sky-500">45</span>
+                  <span className="text-base font-medium text-sky-500">
+                    {time}
+                  </span>
                 </div>
                 <input
                   className="w-full h-2 bg-gray-200  rounded-lg appearance-none cursor-pointer accent-sky-500"
                   id="time"
-                  max="120"
+                  max="60"
                   min="10"
+                  value={time}
                   type="range"
+                  onChange={(e) => setTIme(e.target.value)}
                   //   value="45"
                 />
               </div>

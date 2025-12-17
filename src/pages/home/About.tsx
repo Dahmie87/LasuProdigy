@@ -46,10 +46,13 @@ export default function AboutPage() {
                   Core Features
                 </h2>
                 <p className="text-[#111318]  text-base font-normal leading-relaxed pb-3 pt-1 px-4">
-                  ProdigyLasu is designed to be your central hub for academic
-                  success. Key features include an CBT Mdde tests simulating real lasu examinations, quisck test to spin up questions to pracctice in a limited amount of time, and
-                  collaborative project spaces to work with classmates.
-                  Everything you need, all in one place.
+                  ProdigyLASU is designed to be your central hub for academic
+                  success. Key features include CBT mock tests that simulate
+                  real LASU examinations, quick tests that let you generate
+                  practice questions within a limited time, collaborative
+                  project spaces for working with classmates, and many other
+                  useful academic resources. Everything you need, all in one
+                  place.
                 </p>
               </div>
               <div>
@@ -57,11 +60,7 @@ export default function AboutPage() {
                   Verification
                 </h2>
                 <p className="text-[#111318]  text-base font-normal leading-relaxed pb-3 pt-1 px-4">
-                  ProdigyLasu is designed to be your central hub for academic
-                  success. Key features include an intuitive schedule manager, a
-                  comprehensive assignment tracker with deadline reminders, and
-                  collaborative project spaces to work with classmates.
-                  Everything you need, all in one place.
+                  Verification feature in prodigy helps to
                 </p>
               </div>
               <div>
@@ -69,15 +68,16 @@ export default function AboutPage() {
                   Meet the Developer
                 </h2>
                 <p className="text-[#111318]  text-base font-normal leading-relaxed pb-3 pt-1 px-4">
-                  Hi there!, i appreciate yoo contributing to the Prodigy
-                  community, if you are reading this you are either curious
-                  about the dev who broght this application to life or you have a big
-                  bug to report, either way im pumped to tell you about me, i am Omotayo
-                  Damilare, a 200 level lasuite myself, a computer Science
-                  Major- obviously, and from my works i can confidently say that
-                  i'm a software enginerr, if you are interested in the
-                  technology used in this project or have any issue to complain
-                  about you can dm me directly
+                  Hi there! I appreciate you contributing to the Prodigy
+                  community. If you’re reading this, you’re either curious about
+                  the developer who brought this application to life, or you’ve
+                  found a bug you’d like to report. Either way, I’m excited to
+                  tell you a bit about myself. My name is Omotayo Damilare, a
+                  200-level Computer Science student at LASUITE. From my work so
+                  far, I can confidently describe myself as a software engineer.
+                  If you’re interested in the technologies used to build this
+                  project, or if you have any issues or feedback to share, feel
+                  free to reach out to me directly via DM.{" "}
                 </p>
               </div>
               {/* <!-- Section: Legal and Support --> */}
