@@ -1,17 +1,23 @@
 import { ArrowBack } from "../../assets/icons/arrowBack";
 // import ArrowRightIcon from "../../assets/icons/arrow";
+
 import { ArrowDown } from "../../assets/icons/arrowDown";
+import { Link } from "react-router-dom";
+import { CloseIcon } from "../../assets/icons/close";
+import { AddIcon } from "../../assets/icons/add";
 export function CustomPage() {
   return (
     <div className="bg-background-light  font-display">
       <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
         {/* <!-- Top App Bar --> */}
         <div className="sticky top-0 z-10 flex items-center bg-background-light/80  p-4 pb-3 backdrop-blur-sm justify-between">
-          <div className="text-[ #0d121b]  flex size-10 shrink-0 items-center justify-center">
-            <span className="material-symbols-outlined text-2xl">
-              <ArrowBack />{" "}
-            </span>
-          </div>
+          <Link to={"/practice"}>
+            <div className="text-[ #0d121b]  flex size-10 shrink-0 items-center justify-center">
+              <span className="material-symbols-outlined text-2xl">
+                <ArrowBack />{" "}
+              </span>
+            </div>
+          </Link>
           <h2 className="text-[#0d121b]  text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">
             Custom Test
           </h2>
@@ -59,7 +65,7 @@ export function CustomPage() {
                 <div className="flex gap-2 p-1 flex-wrap">
                   <div className="flex h-8 shrink-0 items-center justify-center gap-x-1 rounded-lg bg-sky-500/20 pl-2 pr-3">
                     <span className="material-symbols-outlined text-sky-500 text-lg">
-                      close
+                      <CloseIcon />
                     </span>
                     <p className="text-sky-500 text-sm font-medium leading-normal">
                       Algebra
@@ -67,7 +73,7 @@ export function CustomPage() {
                   </div>
                   <div className="flex h-8 shrink-0 items-center justify-center gap-x-1 rounded-lg bg-sky-500/20 pl-2 pr-3">
                     <span className="material-symbols-outlined text-sky-500 text-lg">
-                      close
+                      <CloseIcon />
                     </span>
                     <p className="text-sky-500 text-sm font-medium leading-normal">
                       Calculus
@@ -75,7 +81,7 @@ export function CustomPage() {
                   </div>
                   <div className="flex h-8 shrink-0 items-center justify-center gap-x-1 rounded-lg bg-sky-500/20 pl-2 pr-3">
                     <span className="material-symbols-outlined text-sky-500 text-lg">
-                      close
+                      <CloseIcon />
                     </span>
                     <p className="text-sky-500 text-sm font-medium leading-normal">
                       Trigonometry
@@ -85,7 +91,7 @@ export function CustomPage() {
                 <div className="flex justify-start pt-2">
                   <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-3 bg-transparent text-sky-500 gap-1 text-sm font-bold leading-normal tracking-[0.015em]">
                     <span className="material-symbols-outlined text-xl">
-                      add_circle
+                      <AddIcon />
                     </span>
                     <span className="truncate">Add Topics</span>
                   </button>
