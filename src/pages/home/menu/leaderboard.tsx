@@ -1,4 +1,5 @@
 import { ProfileHeader } from "./Profile";
+import SearchIcon from "../../../assets/icons/search";
 
 function ProdigyUser() {
   const Users = [
@@ -41,7 +42,7 @@ export default function LeaderboardPage() {
           </p>
           <div className="relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-              search
+              <SearchIcon />{" "}
             </span>
             <input
               className="pl-10 pr-4 py-2 w-64 rounded-lg border border-slate-200 bg-white text-slate-900  focus:ring-2 focus:ring-primary focus:border-primary transition"

@@ -47,8 +47,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="text-[#111318]  text-base font-normal leading-relaxed pb-3 pt-1 px-4">
                   ProdigyLasu is designed to be your central hub for academic
-                  success. Key features include an intuitive schedule manager, a
-                  comprehensive assignment tracker with deadline reminders, and
+                  success. Key features include an CBT Mdde tests simulating real lasu examinations, quisck test to spin up questions to pracctice in a limited amount of time, and
                   collaborative project spaces to work with classmates.
                   Everything you need, all in one place.
                 </p>
@@ -70,13 +69,13 @@ export default function AboutPage() {
                   Meet the Developer
                 </h2>
                 <p className="text-[#111318]  text-base font-normal leading-relaxed pb-3 pt-1 px-4">
-                  Hi there!,i appreciate yoo contributing to the Prodigy
+                  Hi there!, i appreciate yoo contributing to the Prodigy
                   community, if you are reading this you are either curious
-                  about teh dev who broght thsi app to life or you have a big
-                  bug to report, either way im pumped to you about me, im Omoayo
+                  about the dev who broght this application to life or you have a big
+                  bug to report, either way im pumped to tell you about me, i am Omotayo
                   Damilare, a 200 level lasuite myself, a computer Science
                   Major- obviously, and from my works i can confidently say that
-                  im a software enginerr, if you are interested in the
+                  i'm a software enginerr, if you are interested in the
                   technology used in this project or have any issue to complain
                   about you can dm me directly
                 </p>

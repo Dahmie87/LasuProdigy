@@ -13,7 +13,7 @@ interface User {
 function LogOutAlert() {
   return (
     <div className="bg-blue-400 py-4 px-8 text-white z-100 text-center">
-      You have successfully logged out of your account 0$12a6sd4$gs*6F4{" "}
+      You have successfully logged out of your account{" "}
     </div>
   );
 }
