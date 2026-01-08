@@ -60,7 +60,14 @@ export default function AboutPage() {
                   Verification
                 </h2>
                 <p className="text-[#111318]  text-base font-normal leading-relaxed pb-3 pt-1 px-4">
-                  Verification feature in prodigy helps to
+                  The verification feature in Prodigy helps ensure a secure,
+                  fair, and personalized learning experience for every user. By
+                  verifying accounts, Prodigy can protect student data, prevent
+                  impersonation, and maintain the integrity of CBT tests and
+                  collaborative spaces. Verification also allows the platform to
+                  track progress accurately, provide reliable results, and
+                  ensure that all users are real students who can safely
+                  interact and work together.{" "}
                 </p>
               </div>
               <div>
