@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { HomePage } from "./pages/home/home";
+import ProdigyLandingPage from "./pages/home/ProdigyLandingPage";
 import PracticePage from "./pages/practice/content";
 import "./App.css";
 import PreCBTpage from "./pages/practice/preCBT";
@@ -176,7 +177,7 @@ const NAVIGATION_ARRAY = [
     id: 15,
     pageName: "home",
     url: "/",
-    page: <HomePage />,
+    page: <ProdigyLandingPage />,
     icon: "",
     icon2: "",
   },
@@ -253,7 +254,7 @@ function NavFooter() {
                 </>
               )}
             ></NavLink>
-          )
+          ),
         )}
       </div>
     </footer>
